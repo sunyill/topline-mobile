@@ -15,6 +15,7 @@
 
 <script>
 import { login } from '@/api/user'
+import { mapMutations } from 'vuex'
 export default {
   name: 'login',
   data () {
@@ -26,11 +27,13 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setUser']),
     // 处理登录请求
     async handleLogin () {
       try {
         let result = await login(this.user)
-        this.$store.commit('setUser', result)
+        // this.$store.commit('setUser', result)
+        this.setUser(result)
         this.$router.push('/')
         this.$toast.success('登录成功呦')
         console.log(result)
