@@ -1,6 +1,7 @@
 
 import Axios from 'axios'
 import JSONbig from 'json-bigint'
+import store from '@/store'
 /**
  *  创建一个axios 实例,封装了baseUrl
  */
@@ -22,6 +23,10 @@ instance.defaults.transformResponse = [function (data) {
  * 请求拦截器, 用来设置token等
  */
 instance.interceptors.request.use(function (config) {
+  if (store.store.use) {
+    // 如果请求 有登录状态请求时, 自动携带token
+    config.headers.Authorization = `Bearer ${store.state.use.token}`
+  }
   return config
 }, function (err) {
   return Promise.reject(err)
