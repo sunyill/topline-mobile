@@ -48,12 +48,19 @@ export default {
     // 处理登录请求
     async handleLogin () {
       try {
-        let result = await login(this.user)
+        const valid = await this.$validator.validate()
+        if (!valid) {
+          return
+        }
+        // 验证成功
+        const data = await login(this.user)
+
+        // let result = await login(this.user)
         // this.$store.commit('setUser', result)
-        this.setUser(result)
+        this.setUser(data)
         this.$router.push('/')
         this.$toast.success('登录成功呦')
-        console.log(result)
+        console.log(data)
       } catch (error) {
         this.$toast.fail('用户名或密码错误')
         console.log(error)
