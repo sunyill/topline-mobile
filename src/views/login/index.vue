@@ -16,6 +16,7 @@
 <script>
 import { login } from '@/api/user'
 export default {
+  name: 'login',
   data () {
     return {
       user: {
@@ -29,6 +30,7 @@ export default {
     async handleLogin () {
       try {
         let result = await login(this.user)
+        this.$store.commit('setUser', result)
         this.$router.push('/')
         this.$toast.success('登录成功呦')
         console.log(result)
