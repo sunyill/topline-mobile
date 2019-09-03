@@ -2,13 +2,22 @@
   <div>
     <van-nav-bar title="登录" />
     <van-cell-group>
-      <van-field v-model="user.mobile" left-icon="phone-o" placeholder="请输入手机号码" />
+        <!-- :error-message="errors.first('mobile')"     展示错误的信息提示 -->
+      <van-field
+        v-model="user.mobile"
+        v-validate="required"
+        name="mobile"
+        clearable
+        :error-message="errors.first('mobile')"
+        left-icon="phone-o"
+        placeholder="请输入手机号码"
+      />
       <van-field v-model="user.code" left-icon="star-o" placeholder="请输入验证码">
         <van-button slot="button" round type="primary" size="small">发送验证码</van-button>
       </van-field>
     </van-cell-group>
     <div class="login-btn">
-        <van-button class="btn" type="primary" @click="handleLogin">登录</van-button>
+      <van-button class="btn" type="primary" @click="handleLogin">登录</van-button>
     </div>
   </div>
 </template>
