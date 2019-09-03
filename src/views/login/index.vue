@@ -29,8 +29,11 @@ export default {
     async handleLogin () {
       try {
         let result = await login(this.user)
+        this.$router.push('/')
+        this.$toast.success('登录成功呦')
         console.log(result)
       } catch (error) {
+        this.$toast.fail('用户名或密码错误')
         console.log(error)
       }
     }
