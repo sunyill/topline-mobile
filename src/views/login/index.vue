@@ -59,6 +59,21 @@ export default {
         console.log(error)
       }
     }
+  },
+  created () {
+    const myVerify = {
+      custom: {
+        mobile: {
+          required: '请输入手机号码',
+          digits: '手机号码必须为11位数字喔'
+        },
+        code: {
+          required: '请输入验证码',
+          digits: '验证为6位数字'
+        }
+      }
+    }
+    this.$validator.localize('custom', myVerify)
   }
 }
 </script>
