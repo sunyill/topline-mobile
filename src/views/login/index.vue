@@ -25,7 +25,7 @@
       </van-field>
     </van-cell-group>
     <div class="login-btn">
-      <van-button class="btn" type="primary" @click="handleLogin">登录</van-button>
+      <van-button class="btn" type="primary" @click="handleLogin" :loading='loading' loading-type='spinner' loading-text='正在加载中...' >登录</van-button>
     </div>
   </div>
 </template>
@@ -34,6 +34,7 @@
 import { login } from '@/api/user'
 import { mapMutations } from 'vuex'
 export default {
+  loading: false,
   name: 'login',
   data () {
     return {
@@ -47,6 +48,7 @@ export default {
     ...mapMutations(['setUser']),
     // 处理登录请求
     async handleLogin () {
+      this.loading = true
       try {
         const valid = await this.$validator.validate()
         if (!valid) {
@@ -65,6 +67,7 @@ export default {
         this.$toast.fail('用户名或密码错误')
         console.log(error)
       }
+      this.loading = false
     }
   },
   created () {
