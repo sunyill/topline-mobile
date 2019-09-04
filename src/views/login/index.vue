@@ -34,10 +34,11 @@
 import { login } from '@/api/user'
 import { mapMutations } from 'vuex'
 export default {
-  loading: false,
+
   name: 'login',
   data () {
     return {
+      loading: false,
       user: {
         mobile: '13911111111',
         code: '246810'

@@ -23,9 +23,9 @@ instance.defaults.transformResponse = [function (data) {
  * 请求拦截器, 用来设置token等
  */
 instance.interceptors.request.use(function (config) {
-  if (store.store.use) {
+  if (store.state.user) {
     // 如果请求 有登录状态请求时, 自动携带token
-    config.headers.Authorization = `Bearer ${store.state.use.token}`
+    config.headers.Authorization = `Bearer ${store.state.user.token}`
   }
   return config
 }, function (err) {
