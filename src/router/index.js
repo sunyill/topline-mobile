@@ -9,11 +9,11 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/tabbar',
-      name: 'tabbar',
+      path: '/',
+      // name: 'tabbar',
       component: MyTabbar,
       children: [{
-        path: '/',
+        path: '',
         name: 'home',
         component: Home
       }]

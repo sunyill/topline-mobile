@@ -1,16 +1,13 @@
 <template>
+  <div>
+    <router-view></router-view>
 
-    <div>Tabbar
-        <router-view></router-view>
-    </div>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
 <style>
-
 </style>
