@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 22:48:49
+ * @LastEditTime: 2019-09-05 23:11:37
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -34,15 +34,12 @@
                 <!-- grid 显示封面,article.cover.type     0表示没有封面,1==1个图片, 3 ==三个图片 -->
                 <van-grid v-if="article.cover.type" :border="false" :column-num="3">
                   <van-grid-item v-for="(imgs, index) in article.cover.images" :key="imgs+index">
-                    <van-image lazy-load="" height="80" :src="imgs">
+                    <van-image lazy-load height="80" :src="imgs">
                       <template v-slot:loading>
-                        <van-loading type="spinner" size="20"/>
-
+                        <van-loading type="spinner" size="20" />
                       </template>
                       <!-- 自定义加载失败 -->
-                      <template v-slot:error>
-                        加载失败
-                      </template>
+                      <template v-slot:error>加载失败</template>
                     </van-image>
                   </van-grid-item>
                 </van-grid>
@@ -50,8 +47,8 @@
                   <span>{{article.aut_name}}</span>&nbsp;
                   <span>{{article.comm_count}}</span>&nbsp;
                   <span>{{article.pubdate |fmDate}}</span>&nbsp;
-                   <!-- 点击x按钮，记录当前的文章对象 -->
-                  <van-icon name="cross" class="close" @click="handleAction(article)" />
+                  <!-- 点击x按钮，记录当前的文章对象 -->
+                  <van-icon name="cross" class="close"  />
                 </p>
               </div>
             </van-cell>
@@ -59,14 +56,15 @@
         </van-pull-refresh>
       </van-tab>
     </van-tabs>
-<!-- 弹出层组件 -->
-<MoreAction></MoreAction>
+    <!-- 弹出层组件 -->
+    <MoreAction></MoreAction>
     <van-tabbar v-model="active" active-color="#07c160">
       <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item name="search" icon="search">问答</van-tabbar-item>
       <van-tabbar-item name="friends" icon="friends-o">视频</van-tabbar-item>
       <van-tabbar-item name="setting" icon="setting-o">我的</van-tabbar-item>
     </van-tabbar>
+
   </div>
 </template>
 
@@ -82,6 +80,7 @@ export default {
   name: 'Home',
   data () {
     return {
+
       // 通过activeIndex 的索引, 来找到当前的频道对象
       activeIndex: 0,
       // 频道列表
@@ -187,7 +186,7 @@ export default {
     margin-bottom: 50px;
   }
 }
-.close{
+.close {
   float: right;
 }
 </style>
