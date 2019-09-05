@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 20:16:17
+ * @LastEditTime: 2019-09-05 20:28:08
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -12,14 +12,21 @@
     <van-tabs animated v-model="activeIndex">
       <!-- 不同的tab页有不同的列表 -->
       <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
-        <van-list v-model="currentChannel.loading" :finished="currentChannel.finished" finished-text="没有更多了" @load="onLoad">
-          <!-- 遍历tab栏处 -->
-          <van-cell
-            v-for="article in currentChannel.articles"
-            :key="article.art_id.toString()"
-            :title="article.title"
-          />
-        </van-list>
+        <van-pull-refresh v-model="currentChannel.pullLoading" @refresh="onRefresh">
+          <van-list
+            v-model="currentChannel.loading"
+            :finished="currentChannel.finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+          >
+            <!-- 遍历tab栏处 -->
+            <van-cell
+              v-for="article in currentChannel.articles"
+              :key="article.art_id.toString()"
+              :title="article.title"
+            />
+          </van-list>
+        </van-pull-refresh>
       </van-tab>
     </van-tabs>
     <van-tabbar v-model="active">
@@ -58,6 +65,13 @@ export default {
     this.loadChannel()
   },
   methods: {
+    onRefresh () {
+      setTimeout(() => {
+        this.$toast('刷新成功')
+        this.isLoading = false
+        this.count++
+      }, 500)
+    },
     /**
      * @description:加载频道列表
      * @param {type}
@@ -73,9 +87,11 @@ export default {
           channel.articles = []
           channel.loading = false
           channel.finished = false
+          channel.pullLoading = false
         })
         this.channels = data.channels
       } catch (error) {
+        this.currentChannel.finished = true
         console.log(error)
       }
     },
