@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 13:12:50
+ * @LastEditTime: 2019-09-05 13:45:39
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -10,8 +10,9 @@
     <van-nav-bar title="首页头条" fixed />
 
     <van-tabs animated>
-      <van-tab :title="index" v-for="index in titleList" :key="index">
+      <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+          <!-- 遍历tab栏处 -->
           <van-cell v-for="item in list" :key="item" :title="item" />
         </van-list>
       </van-tab>
@@ -26,29 +27,37 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import { getDefaultOrUserList } from '@/api/channel'
 
 export default {
   name: 'Home',
   data () {
     return {
+      // 频道列表
+      channels: [],
       active: 'search',
       list: [],
       loading: false,
-      finished: false,
-      titleList: [
-        '面包',
-        '花生',
-        '糖果',
-        '松仁',
-        '腰果',
-        '苹果',
-        '香蕉',
-        '橘子'
-      ]
+      finished: false
     }
   },
+  created () {
+    this.loadChannel()
+  },
   methods: {
+    /**
+     * @description:加载频道列表
+     * @param {type}
+     * @return:
+     */
+    async loadChannel () {
+      try {
+        const data = await getDefaultOrUserList()
+        this.channels = data.channels
+      } catch (error) {
+        console.log(error)
+      }
+    },
     onChange (event) {
       console.log(event)
     },
