@@ -2,14 +2,14 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 13:45:39
+ * @LastEditTime: 2019-09-05 19:09:26
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div>
     <van-nav-bar title="首页头条" fixed />
 
-    <van-tabs animated>
+    <van-tabs animated v-model="activeIndex">
       <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <!-- 遍历tab栏处 -->
@@ -33,6 +33,8 @@ export default {
   name: 'Home',
   data () {
     return {
+      // 通过activeIndex 的索引, 来找到当前的频道对象
+      activeIndex: [],
       // 频道列表
       channels: [],
       active: 'search',
