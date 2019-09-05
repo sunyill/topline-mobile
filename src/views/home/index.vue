@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 19:55:48
+ * @LastEditTime: 2019-09-05 20:16:17
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -10,8 +10,9 @@
     <van-nav-bar title="首页头条" fixed />
 
     <van-tabs animated v-model="activeIndex">
+      <!-- 不同的tab页有不同的列表 -->
       <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
-        <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+        <van-list v-model="currentChannel.loading" :finished="currentChannel.finished" finished-text="没有更多了" @load="onLoad">
           <!-- 遍历tab栏处 -->
           <van-cell
             v-for="article in currentChannel.articles"
@@ -41,10 +42,10 @@ export default {
       activeIndex: 0,
       // 频道列表
       channels: [],
-      active: 'home',
-      list: [],
-      loading: false,
-      finished: false
+      active: 'home'
+      // list: [],
+      // loading: false,
+      // finished: false
     }
   },
   computed: {
@@ -70,6 +71,8 @@ export default {
           // 给所有的频道设置时间戳和文章数组
           channel.timestamp = null
           channel.articles = []
+          channel.loading = false
+          channel.finished = false
         })
         this.channels = data.channels
       } catch (error) {
@@ -95,7 +98,12 @@ export default {
       // 记录文章列表, 记录最后一调数据的时间戳
       this.currentChannel.timestamp = data.pre_timestamp
       this.currentChannel.articles.push(...data.results)
-      this.loading = false
+      // this.loading = false
+      this.currentChannel.loading = false
+      // 文章加载完毕, 如果一个频道的finished执行完毕, 其他tab页的finished也执行完毕
+      if (data.results.length === 0) {
+        this.currentChannel.finished = true
+      }
     }
   }
 }
@@ -109,7 +117,7 @@ export default {
     z-index: 10;
   }
   /deep/ .van-tabs__content {
-    margin-top: 46px;
+    margin-top: 90px;
     margin-bottom: 50px;
   }
 }
