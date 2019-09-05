@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 19:09:26
+ * @LastEditTime: 2019-09-05 19:55:48
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -13,7 +13,11 @@
       <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <!-- 遍历tab栏处 -->
-          <van-cell v-for="item in list" :key="item" :title="item" />
+          <van-cell
+            v-for="article in currentChannel.articles"
+            :key="article.art_id.toString()"
+            :title="article.title"
+          />
         </van-list>
       </van-tab>
     </van-tabs>
@@ -28,19 +32,25 @@
 
 <script>
 import { getDefaultOrUserList } from '@/api/channel'
-
+import { getArticles } from '@/api/article'
 export default {
   name: 'Home',
   data () {
     return {
       // 通过activeIndex 的索引, 来找到当前的频道对象
-      activeIndex: [],
+      activeIndex: 0,
       // 频道列表
       channels: [],
-      active: 'search',
+      active: 'home',
       list: [],
       loading: false,
       finished: false
+    }
+  },
+  computed: {
+    // 返回当前的频道对象
+    currentChannel () {
+      return this.channels[this.activeIndex]
     }
   },
   created () {
@@ -55,6 +65,12 @@ export default {
     async loadChannel () {
       try {
         const data = await getDefaultOrUserList()
+
+        data.channels.forEach(channel => {
+          // 给所有的频道设置时间戳和文章数组
+          channel.timestamp = null
+          channel.articles = []
+        })
         this.channels = data.channels
       } catch (error) {
         console.log(error)
@@ -64,24 +80,22 @@ export default {
       console.log(event)
     },
     /**
-     * @description:列表中加载的方法
+     * @description:列表中数据加载的方法
      * @param {type}
      * @return:
      */
-    onLoad () {
+    async onLoad () {
       // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-        // 加载状态结束
-        this.loading = false
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 500)
+      const data = await getArticles({
+        // 获取列表中 所有的时间戳 及 文章数组
+        channelId: this.currentChannel.id,
+        timestamp: this.currentChannel.timestamp || Date.now(),
+        withTop: 1
+      })
+      // 记录文章列表, 记录最后一调数据的时间戳
+      this.currentChannel.timestamp = data.pre_timestamp
+      this.currentChannel.articles.push(...data.results)
+      this.loading = false
     }
   }
 }
