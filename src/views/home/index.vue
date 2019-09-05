@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 20:28:08
+ * @LastEditTime: 2019-09-05 20:46:11
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -12,7 +12,12 @@
     <van-tabs animated v-model="activeIndex">
       <!-- 不同的tab页有不同的列表 -->
       <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
-        <van-pull-refresh v-model="currentChannel.pullLoading" @refresh="onRefresh">
+        <van-pull-refresh
+          v-model="currentChannel.pullLoading"
+          @refresh="onRefresh"
+          :success-text="successText"
+          animation-duration:2000
+        >
           <van-list
             v-model="currentChannel.loading"
             :finished="currentChannel.finished"
@@ -49,7 +54,8 @@ export default {
       activeIndex: 0,
       // 频道列表
       channels: [],
-      active: 'home'
+      active: 'home',
+      successText: ''
       // list: [],
       // loading: false,
       // finished: false
@@ -65,12 +71,24 @@ export default {
     this.loadChannel()
   },
   methods: {
-    onRefresh () {
-      setTimeout(() => {
-        this.$toast('刷新成功')
-        this.isLoading = false
-        this.count++
-      }, 500)
+    /**
+     * @description: onRefresh() 下拉刷新功能
+     * @param {type}
+     * @return:
+     */
+    async onRefresh () {
+      try {
+        const data = await getArticles({
+          channelId: this.currentChannel.id,
+          timestamp: Date.now(),
+          withTop: 1
+        })
+        this.currentChannel.pullLoading = false
+        this.currentChannel.articles.unshift(...data.results)
+        this.successText = `此次成功加载了${data.results.length}条数据`
+      } catch (error) {
+        console.log(error)
+      }
     },
     /**
      * @description:加载频道列表
