@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 20:46:11
+ * @LastEditTime: 2019-09-05 21:32:43
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -29,12 +29,26 @@
               v-for="article in currentChannel.articles"
               :key="article.art_id.toString()"
               :title="article.title"
-            />
+            >
+              <div slot="label">
+                <!-- grid 显示封面,article.cover.type     0表示没有封面,1==1个图片, 3 ==三个图片 -->
+                <van-grid v-if="article.cover.type" :border="false" :column-num="3">
+                  <van-grid-item v-for="(imgs, index) in article.cover.images" :key="imgs+index">
+                    <van-image height="80" :src="imgs"/>
+                  </van-grid-item>
+                </van-grid>
+                <p>
+                  <span>{{article.aut_name}}</span>&nbsp;
+                  <span>{{article.comm_count}}</span>&nbsp;
+                  <span>{{article.pubdate}}</span>&nbsp;
+                </p>
+              </div>
+            </van-cell>
           </van-list>
         </van-pull-refresh>
       </van-tab>
     </van-tabs>
-    <van-tabbar v-model="active">
+    <van-tabbar v-model="active" active-color="#07c160">
       <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item name="search" icon="search">问答</van-tabbar-item>
       <van-tabbar-item name="friends" icon="friends-o">视频</van-tabbar-item>
