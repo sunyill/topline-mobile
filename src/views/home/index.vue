@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 21:32:43
+ * @LastEditTime: 2019-09-05 21:44:57
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -34,7 +34,16 @@
                 <!-- grid 显示封面,article.cover.type     0表示没有封面,1==1个图片, 3 ==三个图片 -->
                 <van-grid v-if="article.cover.type" :border="false" :column-num="3">
                   <van-grid-item v-for="(imgs, index) in article.cover.images" :key="imgs+index">
-                    <van-image height="80" :src="imgs"/>
+                    <van-image lazy-load="" height="80" :src="imgs">
+                      <template v-slot:loading>
+                        <van-loading type="spinner" size="20"/>
+
+                      </template>
+                      <!-- 自定义加载失败 -->
+                      <template v-slot:error>
+                        加载失败
+                      </template>
+                    </van-image>
                   </van-grid-item>
                 </van-grid>
                 <p>
@@ -60,6 +69,9 @@
 <script>
 import { getDefaultOrUserList } from '@/api/channel'
 import { getArticles } from '@/api/article'
+import Vue from 'vue'
+import { Lazyload } from 'vant'
+Vue.use(Lazyload)
 export default {
   name: 'Home',
   data () {
