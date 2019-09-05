@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 13:07:46
+ * @LastEditTime: 2019-09-05 13:12:50
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -76,9 +76,16 @@ export default {
 }
 </script>
 <style lang='less' scoped>
-
- .van-tabs /deep/ .van-tabs__content {
-   margin-top: 46px;
-   margin-bottom: 50px;
- }
+.van-tabs {
+  /deep/ .van-tabs__wrap {
+    position: fixed;
+    top: 46px;
+    left: 0;
+    z-index: 10;
+  }
+  /deep/ .van-tabs__content {
+    margin-top: 46px;
+    margin-bottom: 50px;
+  }
+}
 </style>
