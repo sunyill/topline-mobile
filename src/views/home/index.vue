@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 21:44:57
+ * @LastEditTime: 2019-09-05 22:18:30
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -49,7 +49,7 @@
                 <p>
                   <span>{{article.aut_name}}</span>&nbsp;
                   <span>{{article.comm_count}}</span>&nbsp;
-                  <span>{{article.pubdate}}</span>&nbsp;
+                  <span>{{article.pubdate |fmDate}}</span>&nbsp;
                 </p>
               </div>
             </van-cell>
