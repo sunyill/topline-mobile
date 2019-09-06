@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-06 19:50:57
+ * @LastEditTime: 2019-09-06 20:29:49
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -57,7 +57,12 @@
       </van-tab>
     </van-tabs>
     <!-- 弹出层组件 -->
-    <more-action v-model="showMoreAction" v-if="currentArticle" :article='currentArticle'></more-action>
+    <more-action
+      v-model="showMoreAction"
+      v-if="currentArticle"
+      @handleSuccess="handleSuccess"
+      :article="currentArticle"
+    ></more-action>
     <van-tabbar v-model="active" active-color="#07c160">
       <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item name="search" icon="search">问答</van-tabbar-item>
@@ -103,6 +108,20 @@ export default {
     this.loadChannel()
   },
   methods: {
+    /**
+     * @description: 子给父传递的数据,操作成功做的处理
+     * @param {type}
+     * @return:
+     */
+    handleSuccess () {
+      this.showMoreAction = false
+      // 找到此条数据在频道中的索引
+      const articles = this.currentChannel.articles
+      const index = articles.findIndex((article) => {
+        return article.art_id === this.currentArticle.art_id
+      })
+      articles.splice(index, 1)
+    },
     /**
      * @description: 点击x按钮, 弹出Moreaction, 并且记录当前的文章对象
      * @param {type}
@@ -198,6 +217,5 @@ export default {
 }
 .close {
   float: right;
-
 }
 </style>

@@ -2,7 +2,7 @@
  * @Description:避免首页过多的代码
  * @Author: your name
  * @Date: 2019-09-05 22:32:04
- * @LastEditTime: 2019-09-06 20:16:41
+ * @LastEditTime: 2019-09-06 20:19:39
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -66,6 +66,8 @@ export default {
       try {
         await dislikeArticle(this.article.art_id)
         this.$toast.success('操作成功')
+        // 告知父组件, 隐藏,移除掉数据
+        this.$emit('handleSuccess')
       } catch (Error) {
         console.log(Error)
         this.$toast.fail('操作失败')
