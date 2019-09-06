@@ -2,7 +2,7 @@
  * @Description: 请求首页列表content
  * @Author: your name
  * @Date: 2019-09-05 14:25:17
- * @LastEditTime: 2019-09-06 20:01:05
+ * @LastEditTime: 2019-09-06 20:57:57
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -23,7 +23,7 @@ export const getArticles = ({
   })
 }
 /**
- * @description:拉黑作者
+ * @description:不感兴趣
  * @param {type}
  * @return:
  */

@@ -2,7 +2,7 @@
  * @Description:避免首页过多的代码
  * @Author: your name
  * @Date: 2019-09-05 22:32:04
- * @LastEditTime: 2019-09-06 20:19:39
+ * @LastEditTime: 2019-09-06 21:19:12
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -30,6 +30,7 @@
 
 <script>
 import { dislikeArticle } from '@/api/article'
+import { blacklists } from '@/api/user.js'
 export default {
   props: {
     value: {
@@ -59,6 +60,7 @@ export default {
           this.dislike()
           break
         case 'blacklist':
+          this.blacklistUser()
           break
       }
     },
@@ -70,6 +72,17 @@ export default {
         this.$emit('handleSuccess')
       } catch (Error) {
         console.log(Error)
+        this.$toast.fail('操作失败')
+      }
+    },
+    async blacklistUser () {
+      try {
+        await blacklists(this.article.aut_id)
+        // 通知父组件,拉黑作者
+        this.$emit('handleSuccess')
+        this.$toast.success('操作成功')
+      } catch (error) {
+        console.log(error)
         this.$toast.fail('操作失败')
       }
     }

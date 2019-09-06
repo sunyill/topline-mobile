@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-06 20:29:49
+ * @LastEditTime: 2019-09-06 21:12:35
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -11,7 +11,7 @@
 
     <van-tabs animated v-model="activeIndex">
       <!-- 不同的tab页有不同的列表 -->
-      <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
+      <van-tab type="line" :title="channel.name" v-for="channel in channels" :key="channel.id">
         <van-pull-refresh
           v-model="currentChannel.pullLoading"
           @refresh="onRefresh"
@@ -63,12 +63,6 @@
       @handleSuccess="handleSuccess"
       :article="currentArticle"
     ></more-action>
-    <van-tabbar v-model="active" active-color="#07c160">
-      <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
-      <van-tabbar-item name="search" icon="search">问答</van-tabbar-item>
-      <van-tabbar-item name="friends" icon="friends-o">视频</van-tabbar-item>
-      <van-tabbar-item name="setting" icon="setting-o">我的</van-tabbar-item>
-    </van-tabbar>
   </div>
 </template>
 
@@ -89,7 +83,6 @@ export default {
       activeIndex: 0,
       // 频道列表
       channels: [],
-      active: 'home',
       successText: '',
       // 点击图标x的时候,记录当前的文章对象
       currentArticle: null
@@ -117,7 +110,7 @@ export default {
       this.showMoreAction = false
       // 找到此条数据在频道中的索引
       const articles = this.currentChannel.articles
-      const index = articles.findIndex((article) => {
+      const index = articles.findIndex(article => {
         return article.art_id === this.currentArticle.art_id
       })
       articles.splice(index, 1)
@@ -208,6 +201,7 @@ export default {
     position: fixed;
     top: 46px;
     left: 0;
+    right: 10px;
     z-index: 10;
   }
   /deep/ .van-tabs__content {
