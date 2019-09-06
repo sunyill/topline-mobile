@@ -2,7 +2,7 @@
  * @Description:避免首页过多的代码
  * @Author: your name
  * @Date: 2019-09-05 22:32:04
- * @LastEditTime: 2019-09-06 19:39:03
+ * @LastEditTime: 2019-09-06 20:16:41
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -10,14 +10,13 @@
   <van-dialog
     :value="value"
     @input="$emit('input',$event)"
-    title="标题"
     :showConfirmButton="false"
     closeOnClickOverlay
   >
     <van-cell-group v-show="!showReports">
-      <van-cell title="不感兴趣" icon="location-o" />
-      <van-cell title="反馈垃圾内容" icon="location-o" is-link @click="showReports=true" />
-      <van-cell title="拉黑作者" icon="location-o" />
+      <van-cell title="不感兴趣" icon="warn-o" @click="handle('dislike')" />
+      <van-cell title="反馈垃圾内容" icon="bulb-o" is-link @click="showReports=true" />
+      <van-cell title="拉黑作者" icon="closed-eye" @click="handle('blacklist')" />
     </van-cell-group>
     <!-- 举报文章 -->
     <van-cell-group v-show="showReports">
@@ -30,6 +29,7 @@
 </template>
 
 <script>
+import { dislikeArticle } from '@/api/article'
 export default {
   props: {
     value: {
@@ -50,6 +50,27 @@ export default {
   },
   created () {
     console.log(this.article.art_id)
+  },
+  methods: {
+    //   通过type参数来执行要判断的内容
+    handle (type) {
+      switch (type) {
+        case 'dislike':
+          this.dislike()
+          break
+        case 'blacklist':
+          break
+      }
+    },
+    async dislike () {
+      try {
+        await dislikeArticle(this.article.art_id)
+        this.$toast.success('操作成功')
+      } catch (Error) {
+        console.log(Error)
+        this.$toast.fail('操作失败')
+      }
+    }
   }
 }
 </script>
