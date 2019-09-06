@@ -2,7 +2,7 @@
  * @Description:避免首页过多的代码
  * @Author: your name
  * @Date: 2019-09-05 22:32:04
- * @LastEditTime: 2019-09-06 21:19:12
+ * @LastEditTime: 2019-09-06 22:07:50
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -21,15 +21,15 @@
     <!-- 举报文章 -->
     <van-cell-group v-show="showReports">
       <van-cell icon="arrow-left" @click="showReports=false" />
-      <van-cell title="标题夸张" />
-      <van-cell title="低俗色情" />
-      <van-cell title="错别字多" />
+      <van-cell title="标题夸张" @click="handle('report',1)" />
+      <van-cell title="低俗色情" @click="handle('report',2)" />
+      <van-cell title="错别字多" @click="handle('report',3)" />
     </van-cell-group>
   </van-dialog>
 </template>
 
 <script>
-import { dislikeArticle } from '@/api/article'
+import { dislikeArticle, reportArticle } from '@/api/article'
 import { blacklists } from '@/api/user.js'
 export default {
   props: {
@@ -62,6 +62,8 @@ export default {
         case 'blacklist':
           this.blacklistUser()
           break
+        case 'report':
+          break
       }
     },
     async dislike () {
@@ -80,6 +82,20 @@ export default {
         await blacklists(this.article.aut_id)
         // 通知父组件,拉黑作者
         this.$emit('handleSuccess')
+        this.$toast.success('操作成功')
+      } catch (error) {
+        console.log(error)
+        this.$toast.fail('操作失败')
+      }
+    },
+    async report (reportType) {
+      try {
+        await reportArticle({
+          target: this.article.art_id,
+          type: reportType
+        })
+        // 告知父组件隐藏对话框
+        this.$emit('input', false)
         this.$toast.success('操作成功')
       } catch (error) {
         console.log(error)
