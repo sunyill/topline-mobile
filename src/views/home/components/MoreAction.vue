@@ -2,32 +2,44 @@
  * @Description:避免首页过多的代码
  * @Author: your name
  * @Date: 2019-09-05 22:32:04
- * @LastEditTime: 2019-09-05 23:10:07
+ * @LastEditTime: 2019-09-06 08:44:22
  * @LastEditors: Please set LastEditors
  -->
 <template>
-<!-- // 弹出框 -->
-    <van-dialog v-model="show" title="标题" show-cancel-button:false closeOnClickOverlay>
-      <van-cell-group v-show="!showReports">
-      <van-cell title="不感兴趣" icon="location-o"/>
-      <van-cell title="反馈垃圾内容" icon="location-o" is-link @click="showReports=true"/>
-      <van-cell title="拉黑作者" icon="location-o"/>
+  <!-- // 弹出框 -->
+  <van-dialog
+    :value="value"
+    @input="$emit('input',$event)"
+    title="标题"
+    :showConfirmButton="false"
+    closeOnClickOverlay
+  >
+    <van-cell-group v-show="!showReports">
+      <van-cell title="不感兴趣" icon="location-o" />
+      <van-cell title="反馈垃圾内容" icon="location-o" is-link @click="showReports=true" />
+      <van-cell title="拉黑作者" icon="location-o" />
     </van-cell-group>
     <!-- 举报文章 -->
     <van-cell-group v-show="showReports">
-      <van-cell icon="arrow-left" @click="showReports=false"/>
-      <van-cell title="标题夸张"/>
-      <van-cell title="低俗色情"/>
-      <van-cell title="错别字多"/>
+      <van-cell icon="arrow-left" @click="showReports=false" />
+      <van-cell title="标题夸张" />
+      <van-cell title="低俗色情" />
+      <van-cell title="错别字多" />
     </van-cell-group>
-    </van-dialog>
+  </van-dialog>
 </template>
 
 <script>
 export default {
+  props: {
+    value: {
+      type: Boolean,
+      required: true
+    }
+  },
   data () {
     return {
-      show: true,
+      showConfirmButton: false,
       showReports: false
     }
   }
@@ -35,5 +47,4 @@ export default {
 </script>
 
 <style>
-
 </style>

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-05 23:11:37
+ * @LastEditTime: 2019-09-06 08:17:20
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -48,7 +48,7 @@
                   <span>{{article.comm_count}}</span>&nbsp;
                   <span>{{article.pubdate |fmDate}}</span>&nbsp;
                   <!-- 点击x按钮，记录当前的文章对象 -->
-                  <van-icon name="cross" class="close"  />
+                  <van-icon name="cross" class="close" @click="showMoreAction=true" />
                 </p>
               </div>
             </van-cell>
@@ -57,14 +57,13 @@
       </van-tab>
     </van-tabs>
     <!-- 弹出层组件 -->
-    <MoreAction></MoreAction>
+    <more-action v-model="showMoreAction"></more-action>
     <van-tabbar v-model="active" active-color="#07c160">
       <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item name="search" icon="search">问答</van-tabbar-item>
       <van-tabbar-item name="friends" icon="friends-o">视频</van-tabbar-item>
       <van-tabbar-item name="setting" icon="setting-o">我的</van-tabbar-item>
     </van-tabbar>
-
   </div>
 </template>
 
@@ -80,7 +79,7 @@ export default {
   name: 'Home',
   data () {
     return {
-
+      showMoreAction: false,
       // 通过activeIndex 的索引, 来找到当前的频道对象
       activeIndex: 0,
       // 频道列表
