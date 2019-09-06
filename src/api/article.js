@@ -2,7 +2,7 @@
  * @Description: 请求首页列表content
  * @Author: your name
  * @Date: 2019-09-05 14:25:17
- * @LastEditTime: 2019-09-05 18:59:31
+ * @LastEditTime: 2019-09-06 08:54:29
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -20,5 +20,12 @@ export const getArticles = ({
       timestamp,
       with_top: withTop
     }
+  })
+}
+
+export const dislikeArticle = (id) => {
+  return request.post('/app/v1_0/article/dislikes', {
+    // 文章的id
+    target: id
   })
 }
