@@ -2,7 +2,7 @@
  * @Description:避免首页过多的代码
  * @Author: your name
  * @Date: 2019-09-05 22:32:04
- * @LastEditTime: 2019-09-06 08:44:22
+ * @LastEditTime: 2019-09-06 19:39:03
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -35,6 +35,11 @@ export default {
     value: {
       type: Boolean,
       required: true
+    },
+    // 从父组件中传递过来的article
+    article: {
+      type: Object,
+      required: true
     }
   },
   data () {
@@ -42,6 +47,9 @@ export default {
       showConfirmButton: false,
       showReports: false
     }
+  },
+  created () {
+    console.log(this.article.art_id)
   }
 }
 </script>

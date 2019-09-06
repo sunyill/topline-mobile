@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-06 08:17:20
+ * @LastEditTime: 2019-09-06 19:50:57
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -48,7 +48,7 @@
                   <span>{{article.comm_count}}</span>&nbsp;
                   <span>{{article.pubdate |fmDate}}</span>&nbsp;
                   <!-- 点击x按钮，记录当前的文章对象 -->
-                  <van-icon name="cross" class="close" @click="showMoreAction=true" />
+                  <van-icon name="cross" class="close" @click="handleAction(article)" />
                 </p>
               </div>
             </van-cell>
@@ -57,7 +57,7 @@
       </van-tab>
     </van-tabs>
     <!-- 弹出层组件 -->
-    <more-action v-model="showMoreAction"></more-action>
+    <more-action v-model="showMoreAction" v-if="currentArticle" :article='currentArticle'></more-action>
     <van-tabbar v-model="active" active-color="#07c160">
       <van-tabbar-item name="home" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item name="search" icon="search">问答</van-tabbar-item>
@@ -85,7 +85,9 @@ export default {
       // 频道列表
       channels: [],
       active: 'home',
-      successText: ''
+      successText: '',
+      // 点击图标x的时候,记录当前的文章对象
+      currentArticle: null
       // list: [],
       // loading: false,
       // finished: false
@@ -101,6 +103,15 @@ export default {
     this.loadChannel()
   },
   methods: {
+    /**
+     * @description: 点击x按钮, 弹出Moreaction, 并且记录当前的文章对象
+     * @param {type}
+     * @return:
+     */
+    handleAction (article) {
+      this.showMoreAction = true
+      this.currentArticle = article
+    },
     /**
      * @description: onRefresh() 下拉刷新功能
      * @param {type}
@@ -187,5 +198,6 @@ export default {
 }
 .close {
   float: right;
+
 }
 </style>
