@@ -2,7 +2,7 @@
  * @Description: 负责tab, 点击图标,显示弹出层
  * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 16:28:45
+ * @LastEditTime: 2019-09-07 16:40:16
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { getAllChannels, deleteChannel } from '@/api/channel'
+import { getAllChannels, deleteChannel, addChannel } from '@/api/channel'
 import { setItem } from '@/utils/localStorage'
 import { mapState } from 'vuex'
 export default {
@@ -87,12 +87,16 @@ export default {
   },
   methods: {
     // 点击推荐频道 分 登录和 未登录的情况
-    handleChannelItem (channel) {
+    async handleChannelItem (channel) {
       // 把点击的 推荐频道推送到我的频道
       this.channels.push(channel)
       if (this.user) {
         // 登录情况下
-
+        try {
+          await addChannel(channel.id, this.channels.length)
+        } catch (error) {
+          this.$toast.fail('操作失败')
+        }
       }
       // 没有登录的情况下, 把我的频道存储到本地存储
       setItem('channel', this.channels)
