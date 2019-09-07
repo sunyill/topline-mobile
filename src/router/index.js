@@ -1,3 +1,10 @@
+/*
+ * @Description: 配置路由界面
+ * @Author: your name
+ * @Date: 2019-09-05 19:58:52
+ * @LastEditTime: 2019-09-07 22:12:17
+ * @LastEditors: Please set LastEditors
+ */
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/home/index'
@@ -22,6 +29,10 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
+    }, {
+      path: '/search',
+      name: 'search',
+      component: () => import(/* webpackChunkName: "search" */ '../views/search/index.vue')
     }
     // {
     //   path: '/about',
