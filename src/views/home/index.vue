@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-07 15:41:31
+ * @LastEditTime: 2019-09-07 15:57:18
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -49,7 +49,7 @@
                   <span>{{article.aut_name}}</span>&nbsp;
                   <span>{{article.comm_count}}</span>&nbsp;
                   <span>{{article.pubdate |fmDate}}</span>&nbsp;
-                  <!-- 点击x按钮，记录当前的文章对象 -->
+                  <!-- 点击x按钮，记录当前的文章对象, -->
                   <van-icon name="cross" class="close" @click="handleAction(article)" />
                 </p>
               </div>
@@ -78,6 +78,7 @@ import { getItem, setItem } from '@/utils/localStorage'
 import { Lazyload } from 'vant'
 import MoreAction from './components/MoreAction'
 import channelEdit from './components/channelEdit'
+
 Vue.use(Lazyload)
 export default {
   components: { MoreAction, channelEdit },
