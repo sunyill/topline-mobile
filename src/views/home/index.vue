@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-07 12:50:49
+ * @LastEditTime: 2019-09-07 13:21:58
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -65,7 +65,7 @@
       @handleSuccess="handleSuccess"
       :article="currentArticle"
     ></more-action>
-    <channel-edit v-model="showChannelEdit"></channel-edit>
+    <channel-edit v-model="showChannelEdit" :channels='channels'></channel-edit>
   </div>
 </template>
 
