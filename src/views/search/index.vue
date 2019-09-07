@@ -2,7 +2,7 @@
  * @Description: search页面
  * @Author: your name
  * @Date: 2019-09-07 21:34:09
- * @LastEditTime: 2019-09-07 22:28:04
+ * @LastEditTime: 2019-09-07 22:40:35
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -13,14 +13,17 @@
       show-action
       @search="onSearch"
       @cancel="onCancel"
+      @input="handleInput"
+      clearable
       background="#57bd6a"
     />
-    <van-cell-group>
-      <van-cell title="单元格" icon="search" />
-      <van-cell title="单元格" icon="search" />
+    <!-- 搜索提示 -->
+    <van-cell-group v-show="value">
+      <van-cell v-for="item in suggestList" :key="item" :title="item" icon="search" />
+
     </van-cell-group>
     <!-- 历史记录 -->
-    <van-cell-group>
+    <van-cell-group v-show="!value">
       <van-cell title="历史记录">
         <!-- 右侧显示内容 -->
         <div>
@@ -29,7 +32,7 @@
           <van-icon name="delete" size="16px"></van-icon>
         </div>
       </van-cell>
-      <van-cell title="单元格" icon="hot-o">
+      <van-cell title="花海" icon="hot-o">
         <!-- 右侧显示内容 -->
         <van-icon name="close" size="18px" />
       </van-cell>
@@ -38,15 +41,31 @@
 </template>
 
 <script>
+import { getSuggestion } from '@/api/search'
 export default {
   data () {
     return {
-      value: ''
+      value: '',
+      // 存放搜索建议的数组
+      suggestList: []
     }
   },
   methods: {
     onSearch () {},
-    onCancel () {}
+    onCancel () {},
+    /**
+   * @description: 搜索input 获取焦点的时刻触发的时间
+   * @param {type}
+   * @return:
+   */
+    async  handleInput () {
+      try {
+        const data = await getSuggestion(this.value)
+        this.suggestList = data.options
+      } catch (error) {
+        console.log(error)
+      }
+    }
   }
 }
 </script>
