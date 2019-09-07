@@ -2,7 +2,7 @@
  * @Description: 负责tab, 点击图标,显示弹出层
  * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 13:21:05
+ * @LastEditTime: 2019-09-07 13:47:57
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -30,12 +30,13 @@
 
 </van-cell>
 <van-grid>
-        <van-grid-item v-for="value in 7" :key="value" text='文字'></van-grid-item>
+        <van-grid-item v-for="channel in RecommandChannel" :key="channel.id" :text='channel.name'></van-grid-item>
     </van-grid>
   </van-popup>
 </template>
 
 <script>
+import { getAllChannels } from '@/api/channel'
 export default {
   name: 'channelEdit',
   props: {
@@ -51,8 +52,37 @@ export default {
   data () {
     return {
       // 控制是否是编辑模式
-      isEdit: false
+      isEdit: false,
+      // 用来存储所有的频道的数组
+      AllChannels: []
     }
+  },
+  computed: {
+    RecommandChannel () {
+      // 获取我的频道中所有的id
+      const ids = this.channels.map((channel) => {
+        return channel.id
+      })
+      // 过滤所有的id, 将出现在我的频道中的id,进行去除
+      return this.AllChannels.filter((channel) => {
+        return !ids.includes(channel.id)
+      })
+    }
+  },
+  methods: {
+    // 加载所有的频道列表
+    async loadAllChannels () {
+      try {
+        const data = await getAllChannels()
+        // 从数据中获取的channels 赋值给数组
+        this.AllChannels = data.channels
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  created () {
+    this.loadAllChannels()
   }
 }
 </script>
