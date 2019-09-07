@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-07 14:48:20
+ * @LastEditTime: 2019-09-07 15:41:31
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -66,7 +66,7 @@
       :article="currentArticle"
     ></more-action>
     <!-- 弹出频道管理 -->
-    <channel-edit v-model="showChannelEdit" :channels='channels' :active="activeIndex"></channel-edit>
+    <channel-edit v-model="showChannelEdit" :channels='channels' @activeChange="handleChange" :active="activeIndex"></channel-edit>
   </div>
 </template>
 
@@ -109,6 +109,15 @@ export default {
     this.loadChannel()
   },
   methods: {
+    /**
+     * @description: 频道管理中,点击我的频道,索引变化时执行
+     * @param {type}
+     * @return:
+     */
+    handleChange (index) {
+      this.activeIndex = index
+      this.showChannelEdit = false
+    },
     /**
      * @description: 子给父传递的数据,操作成功做的处理
      * @param {type}

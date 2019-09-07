@@ -2,7 +2,7 @@
  * @Description: 负责tab, 点击图标,显示弹出层
  * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 14:37:04
+ * @LastEditTime: 2019-09-07 15:38:15
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -23,6 +23,7 @@
       <van-grid-item
         v-for="(channel,index) in channels"
         :key="channel.id"
+        @click="handleMyChannelItem(index)"
       >
         <div
           slot="text"
@@ -81,6 +82,19 @@ export default {
     }
   },
   methods: {
+    /**
+     * @description:点击我的频道时进行处理
+     * @param {type}
+     * @return:
+     */
+    handleMyChannelItem (index) {
+      // 非编辑模式
+      if (!this.isEdit) {
+        // 告诉父组件 选择的索引, 关闭对话框
+        this.$emit('activeChange', index)
+      }
+      // 编辑模式
+    },
     // 加载所有的频道列表
     async loadAllChannels () {
       try {
