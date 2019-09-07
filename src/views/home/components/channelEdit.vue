@@ -2,7 +2,7 @@
  * @Description: 负责tab, 点击图标,显示弹出层
  * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 16:17:16
+ * @LastEditTime: 2019-09-07 16:28:45
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -37,7 +37,7 @@
     <!-- 推荐列表 -->
     <van-cell title="推荐列表" label="点击添加频道"></van-cell>
     <van-grid>
-      <van-grid-item v-for="channel in RecommandChannel" :key="channel.id" :text="channel.name"></van-grid-item>
+      <van-grid-item v-for="channel in RecommandChannel" @click="handleChannelItem(channel)" :key="channel.id" :text="channel.name"></van-grid-item>
     </van-grid>
   </van-popup>
 </template>
@@ -86,6 +86,17 @@ export default {
     }
   },
   methods: {
+    // 点击推荐频道 分 登录和 未登录的情况
+    handleChannelItem (channel) {
+      // 把点击的 推荐频道推送到我的频道
+      this.channels.push(channel)
+      if (this.user) {
+        // 登录情况下
+
+      }
+      // 没有登录的情况下, 把我的频道存储到本地存储
+      setItem('channel', this.channels)
+    },
     /**
      * @description:点击我的频道时进行处理
      * @param {type}
