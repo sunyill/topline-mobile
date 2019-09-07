@@ -2,7 +2,7 @@
  * @Description: 负责tab, 点击图标,显示弹出层
  * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 13:47:57
+ * @LastEditTime: 2019-09-07 14:37:04
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -20,17 +20,22 @@
       <van-button round type="danger" size="mini" v-show="isEdit" @click="isEdit=false">完成</van-button>
     </van-cell>
     <van-grid>
-      <van-grid-item v-for="channel in channels" :key="channel.id" title="标题" :text="channel.name">
-        <van-icon slot="icon" class="close-icon" name="close" v-show="isEdit">
-        </van-icon>
+      <van-grid-item
+        v-for="(channel,index) in channels"
+        :key="channel.id"
+      >
+        <div
+          slot="text"
+          class="van-grid-item__text"
+          :class="{ active: active === index }"
+        >{{ channel.name }}</div>
+        <van-icon slot="icon" class="close-icon" name="close" v-show="isEdit"></van-icon>
       </van-grid-item>
     </van-grid>
     <!-- 推荐列表 -->
-<van-cell title="推荐列表" label="点击添加频道">
-
-</van-cell>
-<van-grid>
-        <van-grid-item v-for="channel in RecommandChannel" :key="channel.id" :text='channel.name'></van-grid-item>
+    <van-cell title="推荐列表" label="点击添加频道"></van-cell>
+    <van-grid>
+      <van-grid-item v-for="channel in RecommandChannel" :key="channel.id" :text="channel.name"></van-grid-item>
     </van-grid>
   </van-popup>
 </template>
@@ -40,12 +45,18 @@ import { getAllChannels } from '@/api/channel'
 export default {
   name: 'channelEdit',
   props: {
+    // 接收当前频道的索引
     value: {
       type: Boolean,
       required: true
     },
     channels: {
       type: Array,
+      required: true
+    },
+    // 接收当前显示的频道的索引
+    active: {
+      type: Number,
       required: true
     }
   },
@@ -60,11 +71,11 @@ export default {
   computed: {
     RecommandChannel () {
       // 获取我的频道中所有的id
-      const ids = this.channels.map((channel) => {
+      const ids = this.channels.map(channel => {
         return channel.id
       })
       // 过滤所有的id, 将出现在我的频道中的id,进行去除
-      return this.AllChannels.filter((channel) => {
+      return this.AllChannels.filter(channel => {
         return !ids.includes(channel.id)
       })
     }
@@ -89,8 +100,11 @@ export default {
 
 <style lang='less' scoped>
 .close-icon {
-    position: absolute;
-    top: 0;
-    right: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.active {
+  color: red;
 }
 </style>
