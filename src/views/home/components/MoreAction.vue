@@ -2,7 +2,7 @@
  * @Description:避免首页过多的代码
  * @Author: your name
  * @Date: 2019-09-05 22:32:04
- * @LastEditTime: 2019-09-06 22:07:50
+ * @LastEditTime: 2019-09-06 22:44:38
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -21,9 +21,8 @@
     <!-- 举报文章 -->
     <van-cell-group v-show="showReports">
       <van-cell icon="arrow-left" @click="showReports=false" />
-      <van-cell title="标题夸张" @click="handle('report',1)" />
-      <van-cell title="低俗色情" @click="handle('report',2)" />
-      <van-cell title="错别字多" @click="handle('report',3)" />
+      <van-cell v-for="item in reportList" :title="item.title" :key="item" @click="handle('report',item.type)" />
+
     </van-cell-group>
   </van-dialog>
 </template>
@@ -46,7 +45,19 @@ export default {
   data () {
     return {
       showConfirmButton: false,
-      showReports: false
+      showReports: false,
+
+      reportList: [
+        { title: '标题夸张', type: 1 },
+        { title: '低俗色情', type: 2 },
+        { title: '错别字多', type: 3 },
+        { title: '旧闻重复', type: 4 },
+        { title: '广告软文', type: 5 },
+        { title: '内容不实', type: 6 },
+        { title: '涉嫌违法犯罪', type: 7 },
+        { title: '侵权', type: 8 },
+        { title: '其他问题', type: 0 }
+      ]
     }
   },
   created () {

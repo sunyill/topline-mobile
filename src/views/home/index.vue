@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-06 21:59:43
+ * @LastEditTime: 2019-09-07 11:12:37
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -67,9 +67,10 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { getDefaultOrUserList } from '@/api/channel'
 import { getArticles } from '@/api/article'
-import Vue from 'vue'
+import { getItem, setItem } from '@/utils/localStorage'
 import { Lazyload } from 'vant'
 import MoreAction from './components/MoreAction'
 Vue.use(Lazyload)
@@ -150,24 +151,38 @@ export default {
      */
     async loadChannel () {
       try {
-        const data = await getDefaultOrUserList()
-
-        data.channels.forEach(channel => {
-          // 给所有的频道设置时间戳和文章数组
+        let channels = []
+        // 如果存在用户的登录信息的话
+        if (this.$store.state.user) {
+          const data = await getDefaultOrUserList()
+          channels = data.channels
+        } else {
+          // 2. 如果用户没有登录，先去本地存储中获取数据，如果没有数据再发送请求
+          // 如果本地存储中没有值，获取的是null
+          channels = getItem('channels')
+          if (!channels) {
+            const data = await getDefaultOrUserList()
+            channels = data.channels
+            setItem('channels', channels)
+          }
+        }
+        channels.forEach(channel => {
           channel.timestamp = null
           channel.articles = []
           channel.loading = false
           channel.finished = false
           channel.pullLoading = false
         })
-        this.channels = data.channels
+        // data.channels.forEach(channel => {
+        //   // 给所有的频道设置时间戳和文章数组
+        //   channel.timestamp = null
+        //   channel.articles = []
+        // })
+        this.channels = channels
       } catch (error) {
         this.currentChannel.finished = true
         console.log(error)
       }
-    },
-    onChange (event) {
-      console.log(event)
     },
     /**
      * @description:列表中数据加载的方法
