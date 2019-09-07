@@ -1,8 +1,8 @@
 <!--
  * @Description: 负责tab, 点击图标,显示弹出层
- * @Author: your name
+ * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 13:06:47
+ * @LastEditTime: 2019-09-07 13:15:57
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -16,12 +16,12 @@
     <van-cell icon="cross" @click="$emit('input',false)" />
     <!-- 我的频道界面 -->
     <van-cell title="我的频道" label="点击进入我的频道">
-      <van-button round type="danger" size="mini">编辑</van-button>
+      <van-button round type="danger" size="mini" v-show="!isEdit" @click="isEdit=true">编辑</van-button>
+      <van-button round type="danger" size="mini" v-show="isEdit" @click="isEdit=false">完成</van-button>
     </van-cell>
     <van-grid>
       <van-grid-item v-for="value in 8" :key="value" title="标题" text="文字">
-        <van-icon slot="icon" class="close-icon" name="close">
-
+        <van-icon slot="icon" class="close-icon" name="close" v-show="isEdit">
         </van-icon>
       </van-grid-item>
     </van-grid>
@@ -45,7 +45,10 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      // 控制是否是编辑模式
+      isEdit: false
+    }
   }
 }
 </script>
