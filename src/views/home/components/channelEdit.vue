@@ -2,7 +2,7 @@
  * @Description: 负责tab, 点击图标,显示弹出层
  * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 16:01:05
+ * @LastEditTime: 2019-09-07 16:17:16
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -23,7 +23,7 @@
       <van-grid-item
         v-for="(channel,index) in channels"
         :key="channel.id"
-        @click="handleMyChannelItem(index)"
+        @click="handleMyChannelItem(index,channel.id)"
       >
         <div
           slot="text"
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, deleteChannel } from '@/api/channel'
 import { setItem } from '@/utils/localStorage'
 import { mapState } from 'vuex'
 export default {
@@ -91,7 +91,7 @@ export default {
      * @param {type}
      * @return:
      */
-    handleMyChannelItem (index) {
+    async handleMyChannelItem (index, channelId) {
       // 非编辑模式
       if (!this.isEdit) {
         // 告诉父组件 选择的索引, 关闭对话框
@@ -102,6 +102,11 @@ export default {
       // 判断是否登录
       if (this.user) {
         // 登录发送请求
+        try {
+          await deleteChannel(channelId)
+        } catch (error) {
+          this.$toast.fail('操作失败')
+        }
       }
       // 没有登录, 把频道记录到本地进行储存
       setItem('channels', this.channels)
