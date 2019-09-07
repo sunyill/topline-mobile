@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-07 11:21:10
+ * @LastEditTime: 2019-09-07 12:50:49
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -10,8 +10,10 @@
     <van-nav-bar title="首页头条" fixed />
 
     <van-tabs animated v-model="activeIndex">
+      <!-- 显示在右侧的展示列表小图标 -->
+      <van-icon name="wap-nav" slot="nav-right" class="nav-btn" @click="showChannelEdit=true" />
       <!-- 不同的tab页有不同的列表 -->
-      <van-tab type="line" :title="channel.name" v-for="channel in channels" :key="channel.id">
+      <van-tab :title="channel.name" v-for="channel in channels" :key="channel.id">
         <van-pull-refresh
           v-model="currentChannel.pullLoading"
           @refresh="onRefresh"
@@ -63,7 +65,7 @@
       @handleSuccess="handleSuccess"
       :article="currentArticle"
     ></more-action>
-    <channel-edit></channel-edit>
+    <channel-edit v-model="showChannelEdit"></channel-edit>
   </div>
 </template>
 
@@ -81,6 +83,8 @@ export default {
   name: 'Home',
   data () {
     return {
+      // 显示在tab右侧的点击展开小图标
+      showChannelEdit: false,
       showMoreAction: false,
       // 通过activeIndex 的索引, 来找到当前的频道对象
       activeIndex: 0,
@@ -228,5 +232,13 @@ export default {
 }
 .close {
   float: right;
+}
+.nav-btn {
+  position: fixed;
+  right: 10px;
+  line-height: 44px;
+  font-size: 22px;
+  opacity: 0.8;
+  background: #fff;
 }
 </style>
