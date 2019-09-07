@@ -2,7 +2,7 @@
  * @Description: 负责tab, 点击图标,显示弹出层
  * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 16:40:16
+ * @LastEditTime: 2019-09-07 16:49:49
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -86,8 +86,15 @@ export default {
     }
   },
   methods: {
-    // 点击推荐频道 分 登录和 未登录的情况
+    // 点击推荐频道
+    // 分 登录和 未登录的情况
     async handleChannelItem (channel) {
+      this.$set(channel, 'timestamp', null)
+      this.$set(channel, 'articles', [])
+      this.$set(channel, 'loading', false)
+      this.$set(channel, 'finished', false)
+      this.$set(channel, 'pullLoading', false)
+
       // 把点击的 推荐频道推送到我的频道
       this.channels.push(channel)
       if (this.user) {
