@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-07 11:12:37
+ * @LastEditTime: 2019-09-07 11:21:10
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -63,6 +63,7 @@
       @handleSuccess="handleSuccess"
       :article="currentArticle"
     ></more-action>
+    <channel-edit></channel-edit>
   </div>
 </template>
 
@@ -73,9 +74,10 @@ import { getArticles } from '@/api/article'
 import { getItem, setItem } from '@/utils/localStorage'
 import { Lazyload } from 'vant'
 import MoreAction from './components/MoreAction'
+import channelEdit from './components/channelEdit'
 Vue.use(Lazyload)
 export default {
-  components: { MoreAction },
+  components: { MoreAction, channelEdit },
   name: 'Home',
   data () {
     return {
