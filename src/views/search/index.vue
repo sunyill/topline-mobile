@@ -2,7 +2,7 @@
  * @Description: search页面
  * @Author: your name
  * @Date: 2019-09-07 21:34:09
- * @LastEditTime: 2019-09-08 19:35:27
+ * @LastEditTime: 2019-09-08 20:33:15
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -35,12 +35,18 @@
       <van-cell title="历史记录">
         <!-- 右侧显示内容 -->
         <div v-show="isEdit" style="display:inline-block">
-          <span>全部删除</span>&nbsp;
+          <span @click="handleAllDelete">全部删除</span>&nbsp;
           <span @click="isEdit=false">完成</span>&nbsp;
         </div>
           <van-icon v-show="!isEdit" name="delete" size="16px" @click="isEdit=true"></van-icon>
       </van-cell>
-      <van-cell  icon="hot-o" v-for="(item,index) in histories" :key="index" :title="item">
+      <!-- 展示搜索历史item -->
+      <van-cell
+       icon="hot-o"
+       @click="onSearch(item)"
+       v-for="(item,index) in histories"
+       :key="index"
+       :title="item">
         <!-- 右侧显示内容 -->
         <van-icon name="close" size="18px" v-show="isEdit" @click="handleDelete(index)" />
       </van-cell>
@@ -69,14 +75,20 @@ export default {
   },
   methods: {
     onSearch (item) {
+      this.$router.push({
+        name: 'search-result',
+        params: {
+          q: item
+        }
+      })
       if (this.histories.includes(item)) {
-
+        return
       }
       // 记录搜索历史
       this.histories.push(item)
       // 判断用户是否登录
       if (this.user) {
-
+        return
       }
       // 没有登录
       localStorage.setItem('history', this.histories)
@@ -84,6 +96,7 @@ export default {
     onCancel () {
       this.$toast.fail('取消搜索')
     },
+
     handleDelete (index) {
       this.histories.splice(index, 1)
       localStorage.setItem('history', this.histories)
@@ -98,7 +111,16 @@ export default {
       return item.replace(reg, `<span style="color:red">${this.value}</span>`)
     },
     /**
-   * @description: 搜索input 获取焦点的时刻触发的时间
+     * @description: 全部删除历史记录
+     * @param {type}
+     * @return:
+     */
+    handleAllDelete () {
+      this.histories = []
+      window.localStorage.clear()
+    },
+    /**
+   * @description: 搜索input 获取焦点的时刻触发的事件
    * @param {type}
    * @return:
    */

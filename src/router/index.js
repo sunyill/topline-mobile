@@ -2,7 +2,7 @@
  * @Description: 配置路由界面
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-08 19:43:23
+ * @LastEditTime: 2019-09-08 20:10:30
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -36,6 +36,7 @@ export default new Router({
     }, {
       // 搜索结果页面路由
       path: '/search-result/:q',
+      props: true,
       name: 'search-result',
       component: () => import(/* webpackChunkName: "search-result" */ '../views/search/searchResult')
     }
