@@ -2,7 +2,7 @@
  * @Description: 配置路由界面
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-07 22:12:17
+ * @LastEditTime: 2019-09-08 19:43:23
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -33,6 +33,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: () => import(/* webpackChunkName: "search" */ '../views/search/index.vue')
+    }, {
+      // 搜索结果页面路由
+      path: '/search-result/:q',
+      name: 'search-result',
+      component: () => import(/* webpackChunkName: "search-result" */ '../views/search/searchResult')
     }
     // {
     //   path: '/about',
