@@ -2,7 +2,7 @@
  * @Description: search页面
  * @Author: your name
  * @Date: 2019-09-07 21:34:09
- * @LastEditTime: 2019-09-08 21:07:28
+ * @LastEditTime: 2019-09-08 22:42:57
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -19,16 +19,15 @@
     />
     <!-- 搜索提示  将搜索的内存高亮展示-->
     <van-cell-group v-show="value">
-      <van-cell v-for="item in suggestList"
-      :key="item"
-      @click="onSearch(item)"
-      :title="item"
-       icon="search" >
-      <div slot="title" v-html="highlight(item)">
-
-      </div>
+      <van-cell
+        v-for="item in suggestList"
+        :key="item"
+        @click="onSearch(item)"
+        :title="item"
+        icon="search"
+      >
+        <div slot="title" v-html="highlight(item)"></div>
       </van-cell>
-
     </van-cell-group>
     <!-- 历史记录 -->
     <van-cell-group v-show="!value">
@@ -38,15 +37,16 @@
           <span @click="handleAllDelete">全部删除</span>&nbsp;
           <span @click="isEdit=false">完成</span>&nbsp;
         </div>
-          <van-icon v-show="!isEdit" name="delete" size="16px" @click="isEdit=true"></van-icon>
+        <van-icon v-show="!isEdit" name="delete" size="16px" @click="isEdit=true"></van-icon>
       </van-cell>
       <!-- 展示搜索历史item -->
       <van-cell
-       icon="hot-o"
-       @click="onSearch(item)"
-       v-for="(item,index) in histories"
-       :key="index"
-       :title="item">
+        icon="hot-o"
+        @click="onSearch(item)"
+        v-for="(item,index) in histories"
+        :key="index"
+        :title="item"
+      >
         <!-- 右侧显示内容 -->
         <van-icon name="close" size="18px" v-show="isEdit" @click="handleDelete(index)" />
       </van-cell>
@@ -55,9 +55,11 @@
 </template>
 
 <script>
+import _ from 'lodash'
 import * as localStorage from '../../utils/localStorage'
 import { getSuggestion } from '@/api/search'
 import { mapState } from 'vuex'
+import { getUserHistory } from '../../api/article'
 export default {
   data () {
     return {
@@ -67,7 +69,7 @@ export default {
       // 存放搜索建议的数组
       suggestList: [],
       // 历史记录的数组
-      histories: []
+      histories: localStorage.getItem('history') || []
     }
   },
   computed: {
@@ -81,8 +83,11 @@ export default {
           q: item
         }
       })
+      // 如果用户登录的话,从网络获取
       if (this.histories.includes(item)) {
-        // return
+        console.log(item)
+        const userHisData = getUserHistory()
+        console.log('用户信息' + userHisData)
       }
       // 记录搜索历史
       this.histories.push(item)
@@ -117,29 +122,33 @@ export default {
      */
     handleAllDelete () {
       this.histories = []
-      window.localStorage.clear()
+      // window.localStorage.clear()
     },
     /**
    * @description: 搜索input 获取焦点的时刻触发的事件
    * @param {type}
    * @return:
    */
-    async  handleInput () {
+    handleInput: _.debounce(async function () {
+      if (this.value.length === 0) {
+        return false
+      }
       try {
         const data = await getSuggestion(this.value)
         this.suggestList = data.options
       } catch (error) {
         console.log(error)
       }
-    }
-  },
-  created () {
-    if (this.user) {
+    }, 300),
+
+    created () {
+      if (this.user) {
       // 如果用户存在,服务器获取数据
-      return
+        return
+      }
+      // 没登录,本地获取,  第一次获取的话,可能是空, 返回为null
+      this.histories = localStorage.getItem('history') || []
     }
-    // 没登录,本地获取,  第一次获取的话,可能是空, 返回为null
-    this.histories = localStorage.getItem('history') || []
   }
 }
 </script>

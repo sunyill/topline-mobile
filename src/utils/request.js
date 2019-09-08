@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-05 19:58:52
+ * @LastEditTime: 2019-09-08 22:36:19
+ * @LastEditors: Please set LastEditors
+ */
 
 import Axios from 'axios'
 import JSONbig from 'json-bigint'
@@ -36,7 +43,7 @@ instance.interceptors.request.use(function (config) {
  * response.data.data || response.data  返回的数据时response.data.data 时, 后面的response.data就不会执行
  */
 instance.interceptors.response.use(function (response) {
-  console.log(response)
+  // console.log(response)
   return response.data.data || response.data
 }, function (err) {
   return Promise.reject(err)

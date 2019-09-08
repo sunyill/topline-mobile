@@ -2,7 +2,7 @@
  * @Description: 请求首页列表content
  * @Author: your name
  * @Date: 2019-09-05 14:25:17
- * @LastEditTime: 2019-09-06 21:27:35
+ * @LastEditTime: 2019-09-08 22:38:05
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -48,4 +48,12 @@ export const reportArticle = ({
     type,
     remark
   })
+}
+/**
+ * @description: 获取用户搜索历史
+ * @param {type}
+ * @return:
+ */
+export const getUserHistory = () => {
+  return request.get('/app/v1_0/search/histories')
 }
