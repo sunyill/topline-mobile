@@ -2,7 +2,7 @@
  * @Description: search页面
  * @Author: your name
  * @Date: 2019-09-07 21:34:09
- * @LastEditTime: 2019-09-08 19:21:37
+ * @LastEditTime: 2019-09-08 19:35:27
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -17,9 +17,17 @@
       clearable
       background="#57bd6a"
     />
-    <!-- 搜索提示 -->
+    <!-- 搜索提示  将搜索的内存高亮展示-->
     <van-cell-group v-show="value">
-      <van-cell v-for="item in suggestList" :key="item" @click="onSearch(item)" :title="item" icon="search" />
+      <van-cell v-for="item in suggestList"
+      :key="item"
+      @click="onSearch(item)"
+      :title="item"
+       icon="search" >
+      <div slot="title" v-html="highlight(item)">
+
+      </div>
+      </van-cell>
 
     </van-cell-group>
     <!-- 历史记录 -->
@@ -73,10 +81,21 @@ export default {
       // 没有登录
       localStorage.setItem('history', this.histories)
     },
-    onCancel () {},
+    onCancel () {
+      this.$toast.fail('取消搜索')
+    },
     handleDelete (index) {
       this.histories.splice(index, 1)
       localStorage.setItem('history', this.histories)
+    },
+    /**
+     * @description: 进行高亮显示
+     * @param {type} item是提示内容    'gi':指全局的 忽略大小写
+     * @return:
+     */
+    highlight (item) {
+      let reg = new RegExp(this.value, 'gi')
+      return item.replace(reg, `<span style="color:red">${this.value}</span>`)
     },
     /**
    * @description: 搜索input 获取焦点的时刻触发的时间
