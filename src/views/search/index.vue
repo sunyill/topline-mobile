@@ -2,7 +2,7 @@
  * @Description: search页面
  * @Author: your name
  * @Date: 2019-09-07 21:34:09
- * @LastEditTime: 2019-09-08 20:33:15
+ * @LastEditTime: 2019-09-08 21:07:28
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -82,13 +82,13 @@ export default {
         }
       })
       if (this.histories.includes(item)) {
-        return
+        // return
       }
       // 记录搜索历史
       this.histories.push(item)
       // 判断用户是否登录
       if (this.user) {
-        return
+        // return
       }
       // 没有登录
       localStorage.setItem('history', this.histories)
