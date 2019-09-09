@@ -2,30 +2,32 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-09 19:00:11
+ * @LastEditTime: 2019-09-09 21:33:47
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div>
-    <van-nav-bar title="文章详情" left-text="返回" fixed @click-left="$router.back()"/>
+    <van-nav-bar title="文章详情" left-text="返回" left-arrow fixed @click-left="$router.back()" />
     <div class="article" v-if="article">
-        <h3 class="article-title">{{article.title}}</h3>
-        <!-- 作者信息 -->
-        <!-- 文章内容 -->
-        <div class="article-content" v-html="article.content">
-
-        </div>
-        <!-- 点赞和取消 -->
+      <h3 class="article-title">{{article.title}}</h3>
+      <!-- 作者信息 -->
+      <author-info :article="article"></author-info>
+      <!-- 文章内容 -->
+      <div class="article-content" v-html="article.content"></div>
+      <!-- 点赞和取消 -->
     </div>
   </div>
 </template>
 
 <script>
 import { getArticle } from '@/api/article'
+import AuthorInfo from './authorInfo'
 export default {
   name: 'detail',
-
   props: ['id'],
+  components: {
+    AuthorInfo
+  },
   data () {
     return {
       article: null
