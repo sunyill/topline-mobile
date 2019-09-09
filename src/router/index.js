@@ -2,7 +2,7 @@
  * @Description: 配置路由界面
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-09 08:02:47
+ * @LastEditTime: 2019-09-09 22:21:17
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -42,7 +42,7 @@ export default new Router({
     }, {
       path: '/detail/:id',
       props: true,
-      name: 'datail',
+      name: 'detail',
       component: () => import(/* webpackChunkName: "datail" */ '../views/detail')
     }
 

@@ -2,7 +2,7 @@
  * @Description: 作者信息组件
  * @Author: your name
  * @Date: 2019-09-09 19:05:10
- * @LastEditTime: 2019-09-09 19:20:07
+ * @LastEditTime: 2019-09-09 22:30:52
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -15,15 +15,43 @@
       </div>
     </div>
     <div>
-      <van-button type="danger" :loading="false">关注</van-button>
+      <van-button type="danger" :loading="loading" @click="handleFollow">{{article.is_followed?'已':''}}关注</van-button>
     </div>
   </div>
 </template>
 
 <script>
+import { followUser, unFollowUser } from '@/api/user'
 export default {
   name: 'authorInfo',
-  props: ['article']
+  props: ['article'],
+  data () {
+    return {
+      loading: false
+    }
+  },
+  methods: {
+    async handleFollow () {
+      this.loading = true
+      // 判断是否登录
+      try {
+        // 判断是否已经关注
+        if (this.article.is_followed) {
+          // 如果已经关注，取消关注
+          await unFollowUser(this.article.aut_id)
+          this.article.is_followed = false
+        } else {
+          // 如果没有关注，关注
+          await followUser(this.article.aut_id)
+          this.article.is_followed = true
+        }
+      } catch (err) {
+        // console.log(err)
+        this.$toast.fail('操作失败')
+      }
+      this.loading = false
+    }
+  }
 }
 </script>
 

@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-07 16:38:02
+ * @LastEditTime: 2019-09-09 22:23:52
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -50,4 +50,17 @@ export const addChannel = (id, sep) => {
       sep
     ]
   })
+}
+
+// 关注用户
+export const followUser = (id) => {
+  return request.post('/app/v1_0/user/followings', {
+    // 关注用户的id
+    target: id
+  })
+}
+
+// 取消关注用户
+export const unFollowUser = (id) => {
+  return request.delete(`/app/v1_0/user/followings/${id}`)
 }
