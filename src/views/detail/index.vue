@@ -2,21 +2,18 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-09 08:13:42
+ * @LastEditTime: 2019-09-09 19:00:11
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div>
     <van-nav-bar title="文章详情" left-text="返回" fixed @click-left="$router.back()"/>
-    <div class="article">
-        <h3 class="article-title">这是标题</h3>
+    <div class="article" v-if="article">
+        <h3 class="article-title">{{article.title}}</h3>
         <!-- 作者信息 -->
         <!-- 文章内容 -->
-        <div class="article-content">
-            <p>文章内容</p>
-            <p>文章内容</p>
-            <p>文章内容</p>
-            <p>文章内容</p>
+        <div class="article-content" v-html="article.content">
+
         </div>
         <!-- 点赞和取消 -->
     </div>
@@ -24,18 +21,40 @@
 </template>
 
 <script>
+import { getArticle } from '@/api/article'
 export default {
   name: 'detail',
-  props: ['id']
+
+  props: ['id'],
+  data () {
+    return {
+      article: null
+    }
+  },
+  created () {
+    this.loadData()
+  },
+  methods: {
+    // 加载文章详情
+    async loadData () {
+      try {
+        const data = await getArticle(this.id)
+        this.article = data
+      } catch (err) {
+        console.log(err)
+        this.$toast.fail('获取文章详情失败')
+      }
+    }
+  }
 }
 </script>
 
 <style lang='less' scoped>
 .article {
-  margin-top: 92px;
+  margin-top: 48px;
   padding: 0px 20px;
   .article-title {
-    font-size: 40px;
+    font-size: 20px;
     font-weight: bold;
   }
   .article-content {
