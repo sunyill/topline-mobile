@@ -2,7 +2,7 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-09 21:55:40
+ * @LastEditTime: 2019-09-09 22:46:36
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -15,7 +15,7 @@
       <!-- 文章内容 -->
       <div class="article-content" v-html="article.content"></div>
       <!-- 点赞和取消 -->
-      <moreAction></moreAction>
+      <moreAction :article= 'article'></moreAction>
     </div>
   </div>
 </template>
