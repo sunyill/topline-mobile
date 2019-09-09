@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-07 15:57:18
+ * @LastEditTime: 2019-09-09 22:16:40
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -31,6 +31,7 @@
               v-for="article in currentChannel.articles"
               :key="article.art_id.toString()"
               :title="article.title"
+              @click="$router.push({ name: 'detail', params: { id: article.art_id.toString() } })"
             >
               <div slot="label">
                 <!-- grid 显示封面,article.cover.type     0表示没有封面,1==1个图片, 3 ==三个图片 -->
@@ -50,7 +51,7 @@
                   <span>{{article.comm_count}}</span>&nbsp;
                   <span>{{article.pubdate |fmDate}}</span>&nbsp;
                   <!-- 点击x按钮，记录当前的文章对象, -->
-                  <van-icon name="cross" class="close" @click="handleAction(article)" />
+                  <van-icon name="cross" class="close" @click.stop="handleAction(article)" />
                 </p>
               </div>
             </van-cell>

@@ -2,7 +2,7 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-09 21:33:47
+ * @LastEditTime: 2019-09-09 21:55:40
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -15,6 +15,7 @@
       <!-- 文章内容 -->
       <div class="article-content" v-html="article.content"></div>
       <!-- 点赞和取消 -->
+      <moreAction></moreAction>
     </div>
   </div>
 </template>
@@ -22,11 +23,13 @@
 <script>
 import { getArticle } from '@/api/article'
 import AuthorInfo from './authorInfo'
+import MoreAction from './moreAction'
 export default {
   name: 'detail',
   props: ['id'],
   components: {
-    AuthorInfo
+    AuthorInfo,
+    MoreAction
   },
   data () {
     return {
