@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: wangzhan
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-05 22:18:15
+ * @LastEditTime: 2019-09-09 23:14:29
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -16,6 +16,9 @@ import { fmDate } from '@/utils/dayJs'
 import VeeValidate, { Validator } from 'vee-validate'
 // 导入VeeValidate的中文包
 import zhCN from 'vee-validate/dist/locale/zh_CN'
+// 全局注册登录插件
+import checkLogin from '@/utils/checkLogin'
+Vue.use(checkLogin)
 // 获取相对时间的过滤器
 Vue.filter('fmDate', fmDate)
 Vue.use(Vant)

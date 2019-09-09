@@ -2,7 +2,7 @@
  * @Description: 作者信息组件
  * @Author: your name
  * @Date: 2019-09-09 19:05:10
- * @LastEditTime: 2019-09-09 22:30:52
+ * @LastEditTime: 2019-09-09 23:16:32
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -32,6 +32,10 @@ export default {
   },
   methods: {
     async handleFollow () {
+      // 判断是否登录 , 使用全局注册的 checklogin
+      if (!this.$checkLogin()) {
+        return
+      }
       this.loading = true
       // 判断是否登录
       try {

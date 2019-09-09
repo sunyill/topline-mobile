@@ -2,7 +2,7 @@
  * @Description: 更多操作  : 点赞,取消点赞
  * @Author: your name
  * @Date: 2019-09-09 21:49:18
- * @LastEditTime: 2019-09-09 22:46:08
+ * @LastEditTime: 2019-09-09 23:18:04
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -22,8 +22,11 @@ export default {
   methods: {
     async  handleLike () {
       // 判断是否登录
-
+      if (!this.$checkLogin()) {
+        return
+      }
       // 点赞或者取消点赞
+
       try {
         // -1无态度, 0.不喜欢 1 点赞
         if (this.article.attitude === 1) {
