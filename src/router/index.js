@@ -2,7 +2,7 @@
  * @Description: 配置路由界面
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-08 20:10:30
+ * @LastEditTime: 2019-09-09 08:02:47
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -39,14 +39,12 @@ export default new Router({
       props: true,
       name: 'search-result',
       component: () => import(/* webpackChunkName: "search-result" */ '../views/search/searchResult')
+    }, {
+      path: '/detail/:id',
+      props: true,
+      name: 'datail',
+      component: () => import(/* webpackChunkName: "datail" */ '../views/detail')
     }
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    // }
+
   ]
 })
