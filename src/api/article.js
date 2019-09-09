@@ -2,7 +2,7 @@
  * @Description: 请求首页列表content
  * @Author: your name
  * @Date: 2019-09-05 14:25:17
- * @LastEditTime: 2019-09-09 22:13:08
+ * @LastEditTime: 2019-09-09 22:38:48
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -64,4 +64,32 @@ export const getUserHistory = () => {
  */
 export const getArticle = (id) => {
   return request.get(`/app/v1_0/articles/${id}`)
+}
+/**
+ * @description:点赞
+ * @param {type}
+ * @return:
+ */
+export const likeArticle = (id) => {
+  return request.post(' /app/v1_0/article/likings', {
+    target: id
+  })
+}
+
+/**
+ * @description:取消点赞
+ * @param {type}
+ * @return:
+ */
+export const unLikeArticle = (id) => {
+  return request.delete(`/app/v1_0/article/likings/${id}`)
+}
+
+/**
+ * @description: 取消不喜欢
+ * @param {type}
+ * @return:
+ */
+export const unDislikeArticle = (id) => {
+  return request.delete(`/app/v1_0/article/dislikes/${id}`)
 }
