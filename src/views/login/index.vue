@@ -1,3 +1,10 @@
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-05 19:58:52
+ * @LastEditTime: 2019-09-09 23:33:38
+ * @LastEditors: Please set LastEditors
+ -->
 <template>
   <div>
     <van-nav-bar title="登录" />
@@ -61,7 +68,8 @@ export default {
         // let result = await login(this.user)
         // this.$store.commit('setUser', result)
         this.setUser(data)
-        this.$router.push('/')
+        // this.$router.push('/')
+        this.$router.push(this.$route.query.redirect || '/')
         this.$toast.success('登录成功呦')
         console.log(data)
       } catch (error) {
