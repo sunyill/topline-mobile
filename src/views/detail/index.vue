@@ -2,12 +2,12 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-09 22:46:36
+ * @LastEditTime: 2019-09-10 10:07:48
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div>
-    <van-nav-bar title="文章详情" left-text="返回" left-arrow fixed @click-left="$router.back()" />
+    <van-nav-bar title="文章详情" left-text="返回" left-arrow fixed="true" @click-left="$router.back()" />
     <div class="article" v-if="article">
       <h3 class="article-title">{{article.title}}</h3>
       <!-- 作者信息 -->
@@ -63,7 +63,7 @@ export default {
     font-weight: bold;
   }
   .article-content {
-    font-size: 26px;
+    font-size: 14px;
   }
 }
 </style>
