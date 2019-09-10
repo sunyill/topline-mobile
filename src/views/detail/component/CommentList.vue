@@ -2,7 +2,7 @@
  * @Description: 评论, 更多评论列表
  * @Author: your name
  * @Date: 2019-09-10 14:17:36
- * @LastEditTime: 2019-09-10 16:10:31
+ * @LastEditTime: 2019-09-10 17:29:38
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -22,7 +22,7 @@
         <p>{{comment.content}}</p>
         <p>
           <span>{{comment.pubdate | fmDate}}</span>
-          <span>回复{{comment.reply_count}}</span>
+          <span @click="handleShowReplyList">回复{{comment.reply_count}}</span>
         </p>
       </div>
     </van-cell>
@@ -47,6 +47,14 @@ export default {
     }
   },
   methods: {
+    /**
+     * @description: 处理回复评论, 点击回复的按钮,显示回复评论的列表
+     * @param {type}
+     * @return:
+     */
+    handleShowReplyList () {
+      this.$store.commit('setShowReplyList', true)
+    },
     async onLoad () {
       // 获取评论列表
       try {

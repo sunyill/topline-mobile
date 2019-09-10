@@ -2,7 +2,7 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-10 16:48:34
+ * @LastEditTime: 2019-09-10 17:52:54
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -27,6 +27,8 @@
       <comment-list :isArticle="true" :id="article.art_id.toString()"></comment-list>
       <!-- 发布评论 -->
       <send-comment :isArticle="true" :target="article.art_id.toString()"></send-comment>
+      <!-- 展示评论列表 -->
+      <reply-list v-model="showReplyList"></reply-list>
     </div>
   </div>
 </template>
@@ -37,6 +39,8 @@ import AuthorInfo from './authorInfo'
 import MoreAction from './moreAction'
 import CommentList from './component/CommentList'
 import SendComment from './component/sendComment'
+import ReplyList from './component/ReplyList'
+import { mapState } from 'vuex'
 export default {
   name: 'detail',
   props: ['id'],
@@ -44,12 +48,16 @@ export default {
     AuthorInfo,
     MoreAction,
     CommentList,
-    SendComment
+    SendComment,
+    ReplyList
   },
   data () {
     return {
       article: null
     }
+  },
+  computed: {
+    ...mapState(['showReplyList'])
   },
   created () {
     this.loadData()
