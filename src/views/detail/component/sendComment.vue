@@ -2,7 +2,7 @@
  * @Description: 发布评论
  * @Author: your name
  * @Date: 2019-09-10 15:36:43
- * @LastEditTime: 2019-09-10 17:09:33
+ * @LastEditTime: 2019-09-10 17:18:44
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -30,10 +30,10 @@ export default {
   methods: {
     async handleSend () {
       // 判断是否登录
-    //   if (!this.$checkLogin()) {
-    //     // 没有登录
-    //     return
-    //   }
+      if (!this.$checkLogin()) {
+        // 没有登录
+        return
+      }
       if (this.content.length === 0) {
         this.$toast('请输入评论内容')
         return

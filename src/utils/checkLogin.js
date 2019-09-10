@@ -2,7 +2,7 @@
  * @Description: 判断登录的插件
  * @Author: your name
  * @Date: 2019-09-09 22:49:52
- * @LastEditTime: 2019-09-09 23:36:53
+ * @LastEditTime: 2019-09-10 17:22:01
  * @LastEditors: Please set LastEditors
  */
 export default {
@@ -28,7 +28,7 @@ export default {
         })
         return false
       }
-      return false
+      return true
     }
   }
 }
