@@ -2,7 +2,7 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-10 14:30:08
+ * @LastEditTime: 2019-09-10 15:30:43
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -24,7 +24,7 @@
       <!-- 点赞和取消 -->
       <moreAction :article="article"></moreAction>
       <!-- 评论列表 -->
-      <CommentList ></CommentList>
+      <comment-list :isArticle="true" :id="article.art_id.toString()"></comment-list>
     </div>
   </div>
 </template>
