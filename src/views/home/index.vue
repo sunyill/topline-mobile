@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-10 10:43:13
+ * @LastEditTime: 2019-09-10 11:07:29
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -108,9 +108,7 @@ export default {
       return this.channels[this.activeIndex]
     }
   },
-  created () {
-    this.loadChannel()
-  },
+
   methods: {
     // 处理最后一项索引
     handleLast () {
@@ -230,6 +228,16 @@ export default {
         this.currentChannel.finished = true
       }
     }
+  },
+  created () {
+    this.loadChannel()
+    console.log('created')
+  },
+  activated () {
+    console.log('activated ')
+  },
+  deactivated () {
+    console.log('deactivated')
   }
 }
 </script>
