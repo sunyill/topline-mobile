@@ -2,12 +2,12 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-10 10:07:48
+ * @LastEditTime: 2019-09-10 10:19:43
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div>
-    <van-nav-bar title="文章详情" left-text="返回" left-arrow fixed="true" @click-left="$router.back()" />
+    <van-nav-bar title="文章详情" class="bar_title" left-text="返回" left-arrow fixed @click-left="$router.back()" />
     <div class="article" v-if="article">
       <h3 class="article-title">{{article.title}}</h3>
       <!-- 作者信息 -->
@@ -55,9 +55,10 @@ export default {
 </script>
 
 <style lang='less' scoped>
+
 .article {
   margin-top: 48px;
-  padding: 0px 20px;
+  padding: 4px 20px;
   .article-title {
     font-size: 20px;
     font-weight: bold;
@@ -65,5 +66,6 @@ export default {
   .article-content {
     font-size: 14px;
   }
+
 }
 </style>

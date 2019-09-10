@@ -2,7 +2,7 @@
  * @Description: 负责tab, 点击图标,显示弹出层
  * @Author: wangzhan
  * @Date: 2019-09-07 11:15:21
- * @LastEditTime: 2019-09-07 16:49:49
+ * @LastEditTime: 2019-09-10 10:40:38
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -118,6 +118,11 @@ export default {
       if (!this.isEdit) {
         // 告诉父组件 选择的索引, 关闭对话框
         this.$emit('activeChange', index)
+        return
+      }
+      // 判断当前激活的索引,是不是数组中的最后一项
+      if (this.active === this.channels.length - 1) {
+        this.$emit('last')
       }
       // 编辑模式, 点击的频道从我的频道中移除
       this.channels.splice(index, 1)
