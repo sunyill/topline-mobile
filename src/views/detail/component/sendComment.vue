@@ -2,26 +2,58 @@
  * @Description: 发布评论
  * @Author: your name
  * @Date: 2019-09-10 15:36:43
- * @LastEditTime: 2019-09-10 15:57:39
+ * @LastEditTime: 2019-09-10 17:09:33
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div class="add-comment">
     <div class="input-wrap">
-      <input type="text" />
+      <input type="text" v-model="content"/>
     </div>
     <div class="more-warap">
       <van-icon v-if="!isArticle" name="star-o"></van-icon>
-      <van-button size="small" type="info">发布</van-button>
+      <van-button @click="handleSend" size="small" type="info" >发布</van-button>
     </div>
   </div>
 </template>
 
 <script>
-
+import { sendComment } from '@/api/comment'
 export default {
   name: 'sendComment',
-  props: ['isArticle']
+  props: ['isArticle', 'target'],
+  data () {
+    return {
+      content: ''
+    }
+  },
+  methods: {
+    async handleSend () {
+      // 判断是否登录
+    //   if (!this.$checkLogin()) {
+    //     // 没有登录
+    //     return
+    //   }
+      if (this.content.length === 0) {
+        this.$toast('请输入评论内容')
+        return
+      }
+      try {
+        const data = await sendComment({
+          target: this.target,
+          content: this.content
+        })
+        console.log(data)
+        // 清空输入
+        this.content = ''
+      } catch (error) {
+        console.log(error)
+        this.$toast.fail('发送评论失败')
+      }
+
+      // 发布评论
+    }
+  }
 }
 </script>
 

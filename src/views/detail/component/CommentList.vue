@@ -2,7 +2,7 @@
  * @Description: 评论, 更多评论列表
  * @Author: your name
  * @Date: 2019-09-10 14:17:36
- * @LastEditTime: 2019-09-10 15:35:19
+ * @LastEditTime: 2019-09-10 16:10:31
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -40,6 +40,7 @@ export default {
     return {
       loading: false,
       finished: false,
+      // 评论列表
       list: [],
       offset: null,
       limit: 10
