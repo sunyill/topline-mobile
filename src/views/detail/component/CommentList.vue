@@ -2,7 +2,7 @@
  * @Description: 评论, 更多评论列表
  * @Author: your name
  * @Date: 2019-09-10 14:17:36
- * @LastEditTime: 2019-09-10 15:28:54
+ * @LastEditTime: 2019-09-10 15:35:19
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -77,5 +77,8 @@ export default {
   height: 25px;
   border-radius: 100%;
   margin-right: 5px;
+}
+.van-list {
+  margin-bottom: 64px;
 }
 </style>

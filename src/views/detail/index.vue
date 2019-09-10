@@ -2,7 +2,7 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-10 15:30:43
+ * @LastEditTime: 2019-09-10 15:51:55
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -25,6 +25,8 @@
       <moreAction :article="article"></moreAction>
       <!-- 评论列表 -->
       <comment-list :isArticle="true" :id="article.art_id.toString()"></comment-list>
+      <!-- 发布评论 -->
+      <send-comment :isArticle='true'></send-comment>
     </div>
   </div>
 </template>
@@ -34,13 +36,15 @@ import { getArticle } from '@/api/article'
 import AuthorInfo from './authorInfo'
 import MoreAction from './moreAction'
 import CommentList from './component/CommentList'
+import SendComment from './component/sendComment'
 export default {
   name: 'detail',
   props: ['id'],
   components: {
     AuthorInfo,
     MoreAction,
-    CommentList
+    CommentList,
+    SendComment
   },
   data () {
     return {
