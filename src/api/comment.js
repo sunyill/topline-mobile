@@ -2,11 +2,15 @@
  * @Description: 评论api
  * @Author: your name
  * @Date: 2019-09-10 14:41:17
- * @LastEditTime: 2019-09-10 15:32:26
+ * @LastEditTime: 2019-09-10 16:05:49
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
-
+/**
+ * @description:获取评论
+ * @param {type}
+ * @return:
+ */
 export const getComments = ({
   isArticle,
   source,
@@ -21,5 +25,20 @@ export const getComments = ({
       offset,
       limit
     }
+  })
+}
+
+/**
+ * @description:发布评论
+ * @param {type}
+ * @return:
+ */
+export const sendComment = ({ target,
+  content,
+  artId }) => {
+  return request.post('/app/v1_0/comments', {
+    target,
+    content,
+    art_id: artId
   })
 }
