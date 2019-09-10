@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-10 11:44:00
+ * @LastEditTime: 2019-09-10 14:15:20
  * @LastEditors: Please set LastEditors
  */
 
@@ -71,9 +71,13 @@ instance.interceptors.response.use(function (response) {
     } catch (error) {
       console.log(error)
       // 跳转到首页
-      // 如果token过期,则跳转到登录页
-      router.push('/login')
-      // this.$router.push('/login')
+      // 如果token过期,则跳转到登录页,并且登录成功后 跳转到刚才浏览的页面
+      router.push({
+        path: '/login',
+        query: {
+          redirect: router.currentRoute.fullPath
+        }
+      })
     }
   }
   return Promise.reject(err)

@@ -2,16 +2,16 @@
  * @Description: 更多操作  : 点赞,取消点赞
  * @Author: your name
  * @Date: 2019-09-09 21:49:18
- * @LastEditTime: 2019-09-09 23:18:04
+ * @LastEditTime: 2019-09-10 14:34:50
  * @LastEditors: Please set LastEditors
  -->
 <template>
 <div class="more-aciton">
     <van-button
     :icon="article.attitude ===1 ?'star':'star-o'"
-@click="handleLike"
+    @click="handleLike"
     round :loading="false" type="danger">点赞</van-button>
-    <van-button icon="delete" round :loading="false" type="danger">取消点赞</van-button>
+    <van-button icon="delete" round :loading="false" type="primary">取消点赞</van-button>
 </div>
 </template>
 
@@ -50,5 +50,6 @@ export default {
   padding: 20px;
   display: flex;
   justify-content: space-around;
+
 }
 </style>

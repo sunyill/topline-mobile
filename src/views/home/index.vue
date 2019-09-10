@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-10 11:07:29
+ * @LastEditTime: 2019-09-10 14:14:15
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -231,14 +231,14 @@ export default {
   },
   created () {
     this.loadChannel()
-    console.log('created')
-  },
-  activated () {
-    console.log('activated ')
-  },
-  deactivated () {
-    console.log('deactivated')
+    // console.log('created')
   }
+  // activated () {
+  //   console.log('activated ')
+  // },
+  // deactivated () {
+  //   console.log('deactivated')
+  // }
 }
 </script>
 <style lang='less' scoped>

@@ -2,12 +2,19 @@
  * @Description: 文章详情
  * @Author: your name
  * @Date: 2019-09-08 22:51:21
- * @LastEditTime: 2019-09-10 10:19:43
+ * @LastEditTime: 2019-09-10 14:30:08
  * @LastEditors: Please set LastEditors
  -->
 <template>
   <div>
-    <van-nav-bar title="文章详情" class="bar_title" left-text="返回" left-arrow fixed @click-left="$router.back()" />
+    <van-nav-bar
+      title="文章详情"
+      class="bar_title"
+      left-text="返回"
+      left-arrow
+      fixed
+      @click-left="$router.back()"
+    />
     <div class="article" v-if="article">
       <h3 class="article-title">{{article.title}}</h3>
       <!-- 作者信息 -->
@@ -15,7 +22,9 @@
       <!-- 文章内容 -->
       <div class="article-content" v-html="article.content"></div>
       <!-- 点赞和取消 -->
-      <moreAction :article= 'article'></moreAction>
+      <moreAction :article="article"></moreAction>
+      <!-- 评论列表 -->
+      <CommentList ></CommentList>
     </div>
   </div>
 </template>
@@ -24,12 +33,14 @@
 import { getArticle } from '@/api/article'
 import AuthorInfo from './authorInfo'
 import MoreAction from './moreAction'
+import CommentList from './component/CommentList'
 export default {
   name: 'detail',
   props: ['id'],
   components: {
     AuthorInfo,
-    MoreAction
+    MoreAction,
+    CommentList
   },
   data () {
     return {
@@ -55,7 +66,6 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
 .article {
   margin-top: 48px;
   padding: 4px 20px;
@@ -66,6 +76,5 @@ export default {
   .article-content {
     font-size: 14px;
   }
-
 }
 </style>
