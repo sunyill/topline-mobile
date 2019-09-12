@@ -2,7 +2,7 @@
  * @Description:我的 - 关注
  * @Author: your name
  * @Date: 2019-09-12 15:35:21
- * @LastEditTime: 2019-09-12 16:11:16
+ * @LastEditTime: 2019-09-12 16:24:19
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -11,27 +11,38 @@
     <van-nav-bar title="关注/粉丝" left-arrow @click-left="$router.back()" />
     <!-- tabs -->
     <van-tabs v-model="active" color="#57bd6a">
-      <van-tab title="关注">内容 1</van-tab>
-      <van-tab title="粉丝">内容 2</van-tab>
+      <van-tab title="关注">
+        <user-list :type= 'type'></user-list>
+      </van-tab>
+      <van-tab title="粉丝">
+        <user-list :type = 'type'></user-list>
+      </van-tab>
     </van-tabs>
     <!-- list列表 -->
   </div>
 </template>
 
 <script>
+import UserList from './component/UserList'
 export default {
   name: 'Follow',
+  components: {
+    UserList
+  },
   data () {
     return {
-      active: 1
+      active: 0,
+      // 1 显示关注用户   2  显示粉丝
+      type: '1'
+
     }
   },
   created () {
 
   },
   activated () {
-    const type = this.$route.query.type
-    if (type === '1') {
+    this.type = this.$route.query.type
+    if (this.type === '1') {
       this.active = 0
     } else {
       this.active = 1
