@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-12 13:58:33
+ * @LastEditTime: 2019-09-12 14:20:37
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -71,4 +71,9 @@ export const unFollowUser = (id) => {
  */
 export const getUserInfo = () => {
   return request.get('/app/v1_0/user')
+}
+
+// 获取当前登录的用户的资料
+export const getUserProfile = () => {
+  return request.get('/app/v1_0/user/profile')
 }
