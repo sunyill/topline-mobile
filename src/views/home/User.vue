@@ -2,7 +2,7 @@
  * @Description: 我的界面
  * @Author: your name
  * @Date: 2019-09-12 12:23:25
- * @LastEditTime: 2019-09-12 14:07:58
+ * @LastEditTime: 2019-09-12 14:16:40
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -16,7 +16,7 @@
     <!-- 显示登录 -->
     <div v-else>
       <van-cell-group class="user-info">
-        <van-cell class="base-info" is-link :border="false">
+        <van-cell class="base-info" @click="$router.push('user-profile')" is-link :border="false">
           <div slot="title">
             <img class="avatar" :src="userInfo.photo" alt />
             <span class="title">{{userInfo.name}}</span>
@@ -132,7 +132,7 @@ export default {
   .base-info {
     display: flex;
     align-items: center;
-    background-color: #0096fa;
+    background-color: #57bd6a;
     div {
       display: flex;
       align-items: center;
@@ -155,7 +155,7 @@ export default {
     color: #fff;
   }
   /deep/ .van-grid-item__content {
-    background-color: #0096fa;
+    background-color: #57bd6a;
   }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Description: 配置路由界面
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-12 12:32:00
+ * @LastEditTime: 2019-09-12 14:10:20
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -33,7 +33,13 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: Login
-    }, {
+    },
+    { // 用户信息界面
+      path: '/user-profile',
+      name: 'user-profile',
+      component: () => import(/* webpackChunkName: "user-profile" */ '../views/user-profile/index.vue')
+    },
+    {
       path: '/search',
       name: 'search',
       component: () => import(/* webpackChunkName: "search" */ '../views/search/index.vue')
