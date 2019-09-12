@@ -2,20 +2,19 @@
  @Description: 小智聊天
  * @Author: your name
  * @Date: 2019-09-12 16:47:06
- * @LastEditTime: 2019-09-12 16:58:22
+ * @LastEditTime: 2019-09-12 17:11:11
  * @LastEditors: Please set LastEditors
  -->
 <template>
 <div class="page-user-chat">
     <van-nav-bar fixed left-arrow @click-left="$router.back()" title="小智同学"></van-nav-bar>
     <div class="chat-list">
-      <div class="chat-item left">
+      <div
+        v-for="chat in list"
+        :key="chat.timestamp"
+        class="chat-item" :class="chat.robot ? ' left' : ' right'">
         <van-image fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
-        <div class="chat-pao">ewqewq</div>
-      </div>
-      <div class="chat-item right">
-        <div class="chat-pao">ewqewq</div>
-        <van-image  fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <div class="chat-pao">{{ chat.msg }}</div>
       </div>
     </div>
     <div class="reply-container van-hairline--top">
@@ -33,6 +32,8 @@ export default {
   name: 'Chat',
   data () {
     return {
+      // 发送消息列表
+      list: [],
       socket: null,
       value: '',
       commentLoading: false
@@ -40,13 +41,19 @@ export default {
   },
   methods: {
     send () {
-      this.socket.send({
-        msg: '你好',
-        timeStamp: Date.now()
-      })
+      const data = {
+        robot: false,
+        msg: this.value,
+        timestamp: Date.now()
+      }
+      this.list.push(data)
+      // 发送消息
+      this.socket.send(data)
+      this.value = ''
     }
+
   },
-  created () {
+  activated () {
     this.socket = io('http://ttapi.research.itcast.cn', {
       query: {
         token: this.$store.state.user.token
@@ -55,12 +62,19 @@ export default {
     this.socket.on('connect', function () {
       console.log('连接成功')
     })
-    this.socket.on('message', function (data) {
-      console.log(data)
+    // 接收到消息
+    this.socket.on('message', (data) => {
+      this.list.push({
+        robot: true,
+        ...data
+      })
     })
     this.socket.on('disconnect', function () {
       console.log('dis')
     })
+  },
+  deactivated () {
+    this.socket.close()
   }
 
 }
