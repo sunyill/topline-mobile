@@ -2,7 +2,7 @@
  * @Description: 配置路由界面
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-12 16:15:14
+ * @LastEditTime: 2019-09-12 16:46:52
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -60,6 +60,11 @@ export default new Router({
       path: '/follow',
       name: 'follow',
       component: () => import(/* webpackChunkName: "follow" */ '../views/follow/index.vue')
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: () => import(/* webpackChunkName: "follow" */ '../views/Chat.vue')
     }
 
   ]

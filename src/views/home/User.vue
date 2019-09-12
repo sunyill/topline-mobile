@@ -2,7 +2,7 @@
  * @Description: 我的界面
  * @Author: your name
  * @Date: 2019-09-12 12:23:25
- * @LastEditTime: 2019-09-12 15:39:28
+ * @LastEditTime: 2019-09-12 16:57:33
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -52,7 +52,7 @@
       <van-cell-group>
         <van-cell title="消息通知" is-link />
         <van-cell title="用户反馈" is-link />
-        <van-cell title="小智同学" is-link />
+        <van-cell title="小智同学" is-link  to="/chat"/>
         <van-cell title="系统设置" is-link to="/settings" />
       </van-cell-group>
     </div>
