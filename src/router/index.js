@@ -2,7 +2,7 @@
  * @Description: 配置路由界面
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-09 22:21:17
+ * @LastEditTime: 2019-09-12 12:32:00
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -23,6 +23,10 @@ export default new Router({
         path: '',
         name: 'home',
         component: Home
+      }, {
+        path: '/user',
+        name: 'user',
+        component: () => import(/* webpackChunkName: "user" */ '../views/home/User.vue')
       }]
     },
     {

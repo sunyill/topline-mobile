@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-03 08:04:40
- * @LastEditTime: 2019-09-10 14:14:15
+ * @LastEditTime: 2019-09-12 12:21:28
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -233,6 +233,7 @@ export default {
     this.loadChannel()
     // console.log('created')
   }
+  // 打印声明周期
   // activated () {
   //   console.log('activated ')
   // },

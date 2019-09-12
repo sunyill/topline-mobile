@@ -2,7 +2,7 @@
  * @Description: In User Settings Editl
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-10 17:29:29
+ * @LastEditTime: 2019-09-10 20:33:00
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -17,7 +17,8 @@ export default new Vuex.Store({
     user: localstorageTool.getItem('user'),
 
     // showReplyList 控制回复列表的展示
-    showReplyList: false
+    showReplyList: false,
+    currentComment: null
   },
   mutations: {
     setUser (state, user) {
@@ -26,6 +27,9 @@ export default new Vuex.Store({
     },
     setShowReplyList (state, isShow) {
       state.showReplyList = isShow
+    },
+    setCurrentComment (state, comment) {
+      state.currentComment = comment
     }
   },
   actions: {

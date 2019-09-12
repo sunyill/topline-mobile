@@ -2,7 +2,7 @@
  * @Description: 评论, 更多评论列表
  * @Author: your name
  * @Date: 2019-09-10 14:17:36
- * @LastEditTime: 2019-09-10 17:29:38
+ * @LastEditTime: 2019-09-10 21:21:05
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -22,7 +22,7 @@
         <p>{{comment.content}}</p>
         <p>
           <span>{{comment.pubdate | fmDate}}</span>
-          <span @click="handleShowReplyList">回复{{comment.reply_count}}</span>
+          <span @click="handleShowReplyList(comment)">回复{{comment.reply_count}}</span>
         </p>
       </div>
     </van-cell>
@@ -52,8 +52,10 @@ export default {
      * @param {type}
      * @return:
      */
-    handleShowReplyList () {
+    handleShowReplyList (comment) {
       this.$store.commit('setShowReplyList', true)
+      // 把comment记录到仓库中
+      this.$store.commit('setCurrentComment', comment)
     },
     async onLoad () {
       // 获取评论列表
