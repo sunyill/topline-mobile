@@ -2,7 +2,7 @@
  * @Description: 我的界面
  * @Author: your name
  * @Date: 2019-09-12 12:23:25
- * @LastEditTime: 2019-09-12 14:16:40
+ * @LastEditTime: 2019-09-12 15:39:28
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -27,11 +27,11 @@
             <span class="count">{{userInfo.art_count}}</span>
             <span class="text">头条</span>
           </van-grid-item>
-          <van-grid-item>
+          <van-grid-item @click="$router.push('/follow?type=1')">
             <span class="count">{{ userInfo.follow_count }}</span>
             <span class="text">关注</span>
           </van-grid-item>
-          <van-grid-item>
+          <van-grid-item @click="$router.push('/follow?type=2')">
             <span class="count">{{userInfo.fans_count}}</span>
             <span class="text">粉丝</span>
           </van-grid-item>

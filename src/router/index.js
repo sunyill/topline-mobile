@@ -2,7 +2,7 @@
  * @Description: 配置路由界面
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-12 14:10:20
+ * @LastEditTime: 2019-09-12 15:35:02
  * @LastEditors: Please set LastEditors
  */
 import Vue from 'vue'
@@ -49,11 +49,17 @@ export default new Router({
       props: true,
       name: 'search-result',
       component: () => import(/* webpackChunkName: "search-result" */ '../views/search/searchResult')
-    }, {
+    },
+    {
       path: '/detail/:id',
       props: true,
       name: 'detail',
       component: () => import(/* webpackChunkName: "datail" */ '../views/detail')
+    },
+    { // 我的-关注页面
+      path: '/follow',
+      name: 'follow',
+      component: () => import(/* webpackChunkName: "follow" */ '../views/Follow.vue')
     }
 
   ]
