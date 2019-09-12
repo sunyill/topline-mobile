@@ -2,7 +2,7 @@
  @Description: 小智聊天
  * @Author: your name
  * @Date: 2019-09-12 16:47:06
- * @LastEditTime: 2019-09-12 17:16:57
+ * @LastEditTime: 2019-09-12 17:23:12
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -46,15 +46,19 @@ export default {
         msg: this.value,
         timestamp: Date.now()
       }
-      this.list.push(data)
+
       // 发送消息
       this.socket.send(data)
+      this.list.push(data)
       //   this.value = ''
       this.update()
     },
     update () {
       // 更新chat-list的scrollTop
-      this.$$refs.chatlist.scollTop = this.$refs.chatlist.scrollHeight
+      // 为甚使用nextTick , 因为dom 渲染的问题
+      this.$nextTick(() => {
+        this.$refs.chatlist.scrollTop = this.$refs.chatlist.scrollHeight
+      })
     }
 
   },
