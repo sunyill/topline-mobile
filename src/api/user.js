@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-12 15:12:40
+ * @LastEditTime: 2019-09-12 16:28:53
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -82,4 +82,29 @@ export const uploadPhoto = (key, file) => {
   const formData = new FormData()
   formData.append(key, file)
   return request.patch('/app/v1_0/user/photo', formData)
+}
+// 获取关注用户列表
+export const getFollowings = ({
+  page,
+  perPage
+}) => {
+  return request.get('/app/v1_0/user/followings', {
+    params: {
+      page,
+      per_page: perPage
+    }
+  })
+}
+
+// 获取粉丝用户列表
+export const getFollowers = ({
+  page,
+  perPage
+}) => {
+  return request.get('/app/v1_0/user/followers', {
+    params: {
+      page,
+      per_page: perPage
+    }
+  })
 }
