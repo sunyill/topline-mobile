@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-12 14:20:37
+ * @LastEditTime: 2019-09-12 15:12:40
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -76,4 +76,10 @@ export const getUserInfo = () => {
 // 获取当前登录的用户的资料
 export const getUserProfile = () => {
   return request.get('/app/v1_0/user/profile')
+}
+// 用户上传头像接口
+export const uploadPhoto = (key, file) => {
+  const formData = new FormData()
+  formData.append(key, file)
+  return request.patch('/app/v1_0/user/photo', formData)
 }

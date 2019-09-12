@@ -2,7 +2,7 @@
  * @Description: 个人信息界面
  * @Author: your name
  * @Date: 2019-09-12 14:10:53
- * @LastEditTime: 2019-09-12 14:39:17
+ * @LastEditTime: 2019-09-12 15:23:35
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -27,7 +27,7 @@
       <van-cell title="生日" is-link :value="userProfile.birthday"/>
     </van-cell-group>
     <!-- 弹出上传文件的组件 -->
-    <upload-file v-model="showUploadFile"></upload-file>
+    <upload-file v-model="showUploadFile" @upload-success = 'hanlePhotoSuccess'></upload-file>
   </div>
 </template>
 
@@ -53,6 +53,14 @@ export default {
       } catch (error) {
         this.$toast.fail('获取用户信息失败')
       }
+    },
+    /**
+   * @description:头像上传成功
+   * @param {type}
+   * @return:
+   */
+    hanlePhotoSuccess (photo) {
+      this.userProfile.photo = photo
     }
   },
   created () {

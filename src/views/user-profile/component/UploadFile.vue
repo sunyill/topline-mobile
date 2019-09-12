@@ -2,7 +2,7 @@
  @Description: 上传图片,弹出对话框
  * @Author: your name
  * @Date: 2019-09-12 14:33:08
- * @LastEditTime: 2019-09-12 15:02:08
+ * @LastEditTime: 2019-09-12 15:26:44
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -24,6 +24,7 @@
 <script>
 import Vue from 'vue'
 import { ImagePreview } from 'vant'
+import { uploadPhoto } from '@/api/user'
 // 引用图片预览
 Vue.use(ImagePreview)
 export default {
@@ -46,13 +47,27 @@ export default {
         ImagePreview({
           images: [url],
           showIndex: false,
-          onClose () {
-            // 操作关闭
-          }
+          onClose: this.handleUploadPhoto()
         }
-
         )
       }
+    },
+    // 上传头像
+    handleUploadPhoto () {
+      this.$dialog.confirm({
+        message: '是否确认此图片作为头像?'
+      }).then(async () => {
+        try {
+          const data = await uploadPhoto('photo', this.$refs.file.files[0])
+          // 通知父组件图片上传成功
+          this.$emit('upload-success', data.photo)
+          this.$toast.success('头像上传成功')
+        } catch (error) {
+          this.$toast.fail('头像上传失败')
+        }
+      }).catch(() => {
+        // 取消上传做处理
+      })
     }
   }
 }
