@@ -2,7 +2,7 @@
  @Description: 上传图片,弹出对话框
  * @Author: your name
  * @Date: 2019-09-12 14:33:08
- * @LastEditTime: 2019-09-12 15:26:44
+ * @LastEditTime: 2019-09-12 15:30:42
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -57,6 +57,12 @@ export default {
       this.$dialog.confirm({
         message: '是否确认此图片作为头像?'
       }).then(async () => {
+        this.$toast.loading({
+          duration: 0, // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          loadingType: 'spinner',
+          message: '正在上传...'
+        })
         try {
           const data = await uploadPhoto('photo', this.$refs.file.files[0])
           // 通知父组件图片上传成功
@@ -65,6 +71,8 @@ export default {
         } catch (error) {
           this.$toast.fail('头像上传失败')
         }
+        // 关闭加载提示
+        this.$toast.clear()
       }).catch(() => {
         // 取消上传做处理
       })
