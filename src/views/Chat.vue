@@ -2,13 +2,13 @@
  @Description: 小智聊天
  * @Author: your name
  * @Date: 2019-09-12 16:47:06
- * @LastEditTime: 2019-09-12 17:11:11
+ * @LastEditTime: 2019-09-12 17:16:57
  * @LastEditors: Please set LastEditors
  -->
 <template>
 <div class="page-user-chat">
     <van-nav-bar fixed left-arrow @click-left="$router.back()" title="小智同学"></van-nav-bar>
-    <div class="chat-list">
+    <div class="chat-list" ref="chatlist">
       <div
         v-for="chat in list"
         :key="chat.timestamp"
@@ -49,7 +49,12 @@ export default {
       this.list.push(data)
       // 发送消息
       this.socket.send(data)
-      this.value = ''
+      //   this.value = ''
+      this.update()
+    },
+    update () {
+      // 更新chat-list的scrollTop
+      this.$$refs.chatlist.scollTop = this.$refs.chatlist.scrollHeight
     }
 
   },
@@ -68,6 +73,8 @@ export default {
         robot: true,
         ...data
       })
+      // 在接收到消息后 更新滚动条的位置
+      this.update()
     })
     this.socket.on('disconnect', function () {
       console.log('dis')
