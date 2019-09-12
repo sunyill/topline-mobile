@@ -2,7 +2,7 @@
  * @Description:我的 - 关注
  * @Author: your name
  * @Date: 2019-09-12 15:35:21
- * @LastEditTime: 2019-09-12 16:24:19
+ * @LastEditTime: 2019-09-12 16:43:40
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -12,10 +12,10 @@
     <!-- tabs -->
     <van-tabs v-model="active" color="#57bd6a">
       <van-tab title="关注">
-        <user-list :type= 'type'></user-list>
+        <user-list :type= 'active'></user-list>
       </van-tab>
       <van-tab title="粉丝">
-        <user-list :type = 'type'></user-list>
+        <user-list :type = 'active'></user-list>
       </van-tab>
     </van-tabs>
     <!-- list列表 -->
