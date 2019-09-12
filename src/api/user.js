@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-09-05 19:58:52
- * @LastEditTime: 2019-09-09 22:23:52
+ * @LastEditTime: 2019-09-12 13:58:33
  * @LastEditors: Please set LastEditors
  */
 import request from '@/utils/request'
@@ -63,4 +63,12 @@ export const followUser = (id) => {
 // 取消关注用户
 export const unFollowUser = (id) => {
   return request.delete(`/app/v1_0/user/followings/${id}`)
+}
+/**
+ * @description:获取当前用户信息
+ * @param {type}
+ * @return:
+ */
+export const getUserInfo = () => {
+  return request.get('/app/v1_0/user')
 }
